@@ -11,11 +11,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Rigidbody2D RB2D;
 
-
     private bool _isFacingRight = true;
     private bool _isGrounded;
 
-    private bool isTouchingWall;
+    private bool _isTouchingWall;
     [SerializeField]
     private Transform _WallTouchingValidator;
     private bool _isSlidingWall;
@@ -69,6 +68,18 @@ public class Player : MonoBehaviour
         else if (input < 0 && _isFacingRight == true)
         {
             FlipHero();
+        }
+        if (_isTouchingWall == true && _isGrounded == false && input != 0)
+        {
+            _isSlidingWall = true;
+        }
+        else 
+        {
+            _isSlidingWall = false;
+        }
+        if (_isSlidingWall)
+        { 
+            RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
         }
     }
 

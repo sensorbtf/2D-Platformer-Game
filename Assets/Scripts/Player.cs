@@ -27,12 +27,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform _WallTouchingValidator;
 
-
-
     [SerializeField]
     private float _radiousChecker;
     [SerializeField]
     private LayerMask _whatIsPlatform;
+
+    public Collider2D playerCollider;
+    public Collider2D mapCollider;
 
     // Wall-jumping fields
     private bool _isJumpingFromWall;
@@ -73,7 +74,12 @@ public class Player : MonoBehaviour
         {
             RB2D.velocity = Vector2.up * JumpForce;
         }
-        
+
+        if (Input.GetKeyDown(KeyCode.DownArrow) && _isGrounded == true)
+        {
+            StartCoroutine(JumpOff());
+        }
+
         if (input > 0 && _isFacingRight == false)
         {
             FlipHero();
@@ -113,5 +119,12 @@ public class Player : MonoBehaviour
     void SetWallJumpingToFalse()
     {
         _isJumpingFromWall = false;
+    }
+    //Method for Moving From Platform
+    IEnumerator JumpOff()
+    {
+        Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
+        yield return new WaitForSeconds(0.2f);
+        Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
     }
 }

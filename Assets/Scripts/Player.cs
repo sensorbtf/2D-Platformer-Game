@@ -4,31 +4,44 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Fundamental Player fields
     [SerializeField]
     private float _speed;
     [SerializeField]
     private float _jumpForce;
     [SerializeField]
     private Rigidbody2D RB2D;
-
-    private bool _isFacingRight = true;
-    private bool _isGrounded;
-
-    private bool _isTouchingWall;
-    [SerializeField]
-    private Transform _WallTouchingValidator;
-    private bool _isSlidingWall;
     [SerializeField]
     private float _wallSlidingSpeed;
 
+    // Hero state Checkers
+    private bool _isFacingRight = true;
+    private bool _isGrounded;
+    private bool _isTouchingWall;
+    private bool _isSlidingWall;
+
+    // Hero move checkers
 
     [SerializeField]
     private Transform _platformTouchingValidator;
+    [SerializeField]
+    private Transform _WallTouchingValidator;
+
+
+
     [SerializeField]
     private float _radiousChecker;
     [SerializeField]
     private LayerMask _whatIsPlatform;
 
+    // Wall-jumping fields
+    private bool _isJumpingFromWall;
+    [SerializeField]
+    private float _xWallForce;
+    [SerializeField]
+    private float _yWallForce;
+    [SerializeField]
+    private float _wallJumpTime;
     public float Speed 
     {
         get { return _speed; }
@@ -81,11 +94,24 @@ public class Player : MonoBehaviour
         { 
             RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
         }
+        if (Input.GetKeyDown(KeyCode.UpArrow) && _isSlidingWall == true)
+        { 
+            _isJumpingFromWall = true;
+            Invoke("SetWallJumpingToFalse", _wallJumpTime);
+        }
+        if (_isJumpingFromWall == true)
+        {
+            RB2D.velocity = new Vector2(_xWallForce * -input, _yWallForce);
+        }
     }
 
     void FlipHero()
     {
        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
        _isFacingRight =! _isFacingRight;
+    }
+    void SetWallJumpingToFalse()
+    {
+        _isJumpingFromWall = false;
     }
 }

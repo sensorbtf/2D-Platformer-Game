@@ -11,9 +11,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Rigidbody2D RB2D;
 
-    bool _isFacingRight = true;
 
-    bool isGrounded;
+    private bool _isFacingRight = true;
+    private bool isGrounded;
+
+
     [SerializeField]
     private Transform _platformTouchingValidator;
     [SerializeField]
@@ -21,6 +23,36 @@ public class Player : MonoBehaviour
     [SerializeField]
     private LayerMask _whatIsPlatform;
 
+    public float Speed 
+    {
+        get { return _speed; }
+        set
+        {
+            if (value < 0)
+            { 
+                _speed = 0; 
+            } 
+            else
+            {
+                _speed = value;
+            } 
+        }   
+    }
+    public float JumpForce
+    {
+        get { return _jumpForce; }
+        set
+        {
+            if (value < 0)
+            {
+                _jumpForce = 0;
+            }
+            else
+            {
+                _jumpForce = value;
+            }
+        }
+    }
     private void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
@@ -35,7 +67,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
         {
-            RB2D.velocity = Vector2.up * _jumpForce;
+            RB2D.velocity = Vector2.up * JumpForce;
         }
         
         if (input > 0 && _isFacingRight == false)

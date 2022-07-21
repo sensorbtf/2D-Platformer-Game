@@ -15,6 +15,13 @@ public class Player : MonoBehaviour
     private bool _isFacingRight = true;
     private bool isGrounded;
 
+    private bool isTouchingWall;
+    [SerializeField]
+    private Transform WallTouchingValidator;
+    private bool isSlidingWall;
+    [SerializeField]
+    private bool wallSlidingSpeed;
+
 
     [SerializeField]
     private Transform _platformTouchingValidator;

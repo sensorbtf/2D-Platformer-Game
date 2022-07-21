@@ -13,14 +13,14 @@ public class Player : MonoBehaviour
 
 
     private bool _isFacingRight = true;
-    private bool isGrounded;
+    private bool _isGrounded;
 
     private bool isTouchingWall;
     [SerializeField]
-    private Transform WallTouchingValidator;
-    private bool isSlidingWall;
+    private Transform _WallTouchingValidator;
+    private bool _isSlidingWall;
     [SerializeField]
-    private bool wallSlidingSpeed;
+    private float _wallSlidingSpeed;
 
 
     [SerializeField]
@@ -33,32 +33,17 @@ public class Player : MonoBehaviour
     public float Speed 
     {
         get { return _speed; }
-        set
-        {
-            if (value < 0)
-            { 
-                _speed = 0; 
-            } 
-            else
-            {
-                _speed = value;
-            } 
-        }   
+        set { _speed = value < 0 ? _speed = 0 : _speed = value; }   
     }
     public float JumpForce
     {
         get { return _jumpForce; }
-        set
-        {
-            if (value < 0)
-            {
-                _jumpForce = 0;
-            }
-            else
-            {
-                _jumpForce = value;
-            }
-        }
+        set { _jumpForce = value < 0 ? _jumpForce = 0 : _jumpForce = value; }
+    }
+    public float WallSlidingSpeed
+    {
+        get { return _wallSlidingSpeed; }
+        set { _wallSlidingSpeed = value < 0 ? _wallSlidingSpeed = 0 : _wallSlidingSpeed = value; }
     }
     private void Start()
     {
@@ -70,9 +55,9 @@ public class Player : MonoBehaviour
         float input = Input.GetAxisRaw("Horizontal");
         RB2D.velocity = new Vector2(input * _speed, RB2D.velocity.y);
 
-        isGrounded = Physics2D.OverlapCircle(_platformTouchingValidator.position, _radiousChecker, _whatIsPlatform);
+        _isGrounded = Physics2D.OverlapCircle(_platformTouchingValidator.position, _radiousChecker, _whatIsPlatform);
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && _isGrounded == true)
         {
             RB2D.velocity = Vector2.up * JumpForce;
         }

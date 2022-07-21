@@ -43,6 +43,12 @@ public class Player : MonoBehaviour
     private float _yWallForce;
     [SerializeField]
     private float _wallJumpTime;
+
+    // Animator
+
+    private Animator anim;
+
+    // Properties for most used fields
     public float Speed 
     {
         get { return _speed; }
@@ -61,6 +67,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     private void Update()
@@ -109,18 +116,40 @@ public class Player : MonoBehaviour
         {
             RB2D.velocity = new Vector2(_xWallForce * -input, _yWallForce);
         }
+
+        // animations
+        if (input != 0)
+        {
+            anim.SetBool("isRunning", true);
+        }
+        else
+        {
+            anim.SetBool("isRunning", false);
+        }
+
+        if (_isGrounded == true)
+        {
+            anim.SetBool("isJumping", false);  
+        }
+        else
+        {
+            anim.SetBool("isJumping", true);
+        }
     }
 
+
+    // Flipping sprite from left to right
     void FlipHero()
     {
        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
        _isFacingRight =! _isFacingRight;
     }
+    // Wall jumping ture/false
     void SetWallJumpingToFalse()
     {
         _isJumpingFromWall = false;
     }
-    //Method for Moving From Platform
+    //Method for jumping off from platform
     IEnumerator JumpOff()
     {
         Physics2D.IgnoreCollision(playerCollider, mapCollider, true);

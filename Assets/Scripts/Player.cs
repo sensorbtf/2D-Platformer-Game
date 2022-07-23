@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // Singletone instance
+
+    public static Player Instance { get => instance; private set => instance = value; }
+
     // Fundamental Player fields
     [SerializeField]
     private float _speed;
@@ -13,6 +17,9 @@ public class Player : MonoBehaviour
     private Rigidbody2D RB2D;
     [SerializeField]
     private float _wallSlidingSpeed;
+    [SerializeField]
+    private int _health;
+
 
     // Hero state Checkers
     private bool _isFacingRight = true;
@@ -49,12 +56,13 @@ public class Player : MonoBehaviour
     // Animator
 
     private Animator anim;
+    private static Player instance;
 
     // Properties for most used fields
-    public float Speed 
+    public float Speed
     {
         get { return _speed; }
-        set { _speed = value < 0 ? _speed = 0 : _speed = value; }   
+        set { _speed = value < 0 ? _speed = 0 : _speed = value; }
     }
     public float JumpForce
     {
@@ -66,12 +74,36 @@ public class Player : MonoBehaviour
         get { return _wallSlidingSpeed; }
         set { _wallSlidingSpeed = value < 0 ? _wallSlidingSpeed = 0 : _wallSlidingSpeed = value; }
     }
+
+    public int Health
+    {
+        get { return _health; }
+        set
+        {
+            _health = value;
+            if (value <= 0)
+            {
+                Debug.Log("Dead");
+            }
+        }
+    }
+
     private void Start()
     {
         RB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
-
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
+    }
     private void Update()
     {
         float input = Input.GetAxisRaw("Horizontal");
@@ -103,18 +135,18 @@ public class Player : MonoBehaviour
         {
             _isSlidingWall = true;
         }
-        else 
+        else
         {
             _isSlidingWall = false;
         }
 
         if (_isSlidingWall)
-        { 
+        {
             RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && _isSlidingWall == true)
-        { 
+        {
             _isJumpingFromWall = true;
             Invoke("SetWallJumpingToFalse", _wallJumpTime);
         }
@@ -157,8 +189,8 @@ public class Player : MonoBehaviour
     // Flipping sprite from left to right
     void FlipHero()
     {
-       transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-       _isFacingRight =! _isFacingRight;
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        _isFacingRight = !_isFacingRight;
     }
     // Wall jumping ture/false
     void SetWallJumpingToFalse()
@@ -171,5 +203,10 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
         yield return new WaitForSeconds(0.2f);
         Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
+    }
+    public void TakeDamage(int damage)
+    {
+        Health -= damage;
+        print(Health);
     }
 }

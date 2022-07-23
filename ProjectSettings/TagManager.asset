@@ -14,10 +14,10 @@ TagManager:
   - Player
   - 
   - 
-  - 
   - Platforms
   - WallsCeiling
-  - 
+  - Enemy
+  - PostProcessing
   - 
   - 
   - 

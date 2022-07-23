@@ -613,7 +613,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 160
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -629,33 +629,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: herochar_spritesheet(new)_25
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 160
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a23c23795efd19b488f895dd7ca211fd
-      internalID: 300197808
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: herochar_spritesheet(new)_26
       rect:
         serializedVersion: 2
         x: 32
         y: 160
-        width: 16
+        width: 32
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -666,27 +645,6 @@ TextureImporter:
       bones: []
       spriteID: a774636726d1ca24390422e313ce8eab
       internalID: 1089734678
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: herochar_spritesheet(new)_27
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 160
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: dc6bcdcc08181d743b6f749cfea0f31c
-      internalID: 1185141441
       vertices: []
       indices: 
       edges: []

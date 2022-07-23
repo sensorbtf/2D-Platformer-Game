@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class PatrolEnemy : MonoBehaviour
 {
+    public static PatrolEnemy Instance { get; private set; }
+
     [SerializeField]
-    private Transform[] pointsOfPatrol;
+    private int _health;
     [SerializeField]
     private float _speed;
     [SerializeField]
     private int _damage;
     [SerializeField]
     private float _startWaitTime;
+
+    [SerializeField]
+    private Transform[] pointsOfPatrol;
 
     private float _PatrolWaitTime;
     private int _currentPointIndex;
@@ -33,13 +38,35 @@ public class PatrolEnemy : MonoBehaviour
         get { return _damage; }
         set { _damage = value < 0 ? _damage = 0 : _damage = value; }
     }
-
+    public int Health
+    {
+        get { return _health; }
+        set 
+        { 
+            _health = value < 0 ? _health = 0 : _health = value;
+            if (value <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+    }
 
     private void Start()
     {
         transform.position = pointsOfPatrol[0].position;
         anim = GetComponent<Animator>();
         _PatrolWaitTime = _startWaitTime;
+    }
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
     private void Update()
     {
@@ -73,6 +100,11 @@ public class PatrolEnemy : MonoBehaviour
         }
     }
 
+    void FlipEnemy()
+    {
+        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        _isFacingRight = !_isFacingRight;
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -80,10 +112,8 @@ public class PatrolEnemy : MonoBehaviour
             Player.Instance.TakeDamage(Damage);
         }
     }
-
-    void FlipEnemy()
+    public void TakeDamage(int damage)
     {
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
-        _isFacingRight = !_isFacingRight;
+        Health -= damage;
     }
 }

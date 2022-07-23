@@ -6,9 +6,13 @@ public class Player : MonoBehaviour
 {
     // Singletone instance
 
-    public static Player Instance { get => instance; private set => instance = value; }
+    public static Player Instance { get; private set; }
 
     // Fundamental Player fields
+    [SerializeField]
+    private int _health;
+    [SerializeField]
+    private int _damage;
     [SerializeField]
     private float _speed;
     [SerializeField]
@@ -18,7 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _wallSlidingSpeed;
     [SerializeField]
-    private int _health;
+    private float _timeBetweenAtacks; 
+    private float _nextAttackTime;
+    [SerializeField]
+    private float _attackRange;
 
 
     // Hero state Checkers
@@ -32,7 +39,9 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Transform _platformTouchingValidator;
     [SerializeField]
-    private Transform _WallTouchingValidator;
+    private Transform _wallTouchingValidator;
+    [SerializeField]
+    private Transform _attackValidator;
 
     [SerializeField]
     private float _radiousChecker;
@@ -40,6 +49,8 @@ public class Player : MonoBehaviour
     private LayerMask _whatIsPlatform;
     [SerializeField]
     private LayerMask _whatAreWallsAndCeiling;
+    [SerializeField]
+    private LayerMask _whatAreEnemies;
 
     public Collider2D playerCollider;
     public Collider2D mapCollider;
@@ -74,7 +85,21 @@ public class Player : MonoBehaviour
         get { return _wallSlidingSpeed; }
         set { _wallSlidingSpeed = value < 0 ? _wallSlidingSpeed = 0 : _wallSlidingSpeed = value; }
     }
-
+    public float TimeBetweenAtacks
+    {
+        get { return _timeBetweenAtacks; }
+        set { _timeBetweenAtacks = value < 0 ? _timeBetweenAtacks = 0 : _timeBetweenAtacks = value; }
+    }
+    public float AttackRange
+    {
+        get { return _attackRange; }
+        set { _attackRange = value < 0 ? _attackRange = 0 : _attackRange = value; }
+    }
+    public int Damage
+    {
+        get { return _damage; }
+        set { _damage = value < 0 ? _damage = 0 : _damage = value; }
+    }
     public int Health
     {
         get { return _health; }
@@ -83,7 +108,7 @@ public class Player : MonoBehaviour
             _health = value;
             if (value <= 0)
             {
-                Debug.Log("Dead");
+                Destroy(gameObject);
             }
         }
     }
@@ -110,7 +135,7 @@ public class Player : MonoBehaviour
         RB2D.velocity = new Vector2(input * _speed, RB2D.velocity.y);
 
         _isGrounded = Physics2D.OverlapCircle(_platformTouchingValidator.position, _radiousChecker, _whatIsPlatform);
-        _isTouchingWall = Physics2D.OverlapCircle(_WallTouchingValidator.position, _radiousChecker, _whatAreWallsAndCeiling);
+        _isTouchingWall = Physics2D.OverlapCircle(_wallTouchingValidator.position, _radiousChecker, _whatAreWallsAndCeiling);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && _isGrounded == true)
         {
@@ -120,6 +145,22 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow) && _isGrounded == true)
         {
             StartCoroutine(JumpOff());
+        }
+
+        if (Time.time > _nextAttackTime)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackValidator.position, AttackRange, _whatAreEnemies);
+
+                foreach (Collider2D enemies in enemiesToDamage)
+                {
+                    PatrolEnemy.Instance.TakeDamage(Damage);
+                }
+
+                anim.SetTrigger("Attacking");
+                _nextAttackTime = Time.time + TimeBetweenAtacks;
+            }
         }
 
         if (input > 0 && _isFacingRight == false)
@@ -207,6 +248,10 @@ public class Player : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
-        print(Health);
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(_attackValidator.position,AttackRange);
     }
 }

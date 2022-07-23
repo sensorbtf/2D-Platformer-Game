@@ -31,6 +31,8 @@ public class Player : MonoBehaviour
     private float _radiousChecker;
     [SerializeField]
     private LayerMask _whatIsPlatform;
+    [SerializeField]
+    private LayerMask _whatAreWallsAndCeiling;
 
     public Collider2D playerCollider;
     public Collider2D mapCollider;
@@ -76,6 +78,7 @@ public class Player : MonoBehaviour
         RB2D.velocity = new Vector2(input * _speed, RB2D.velocity.y);
 
         _isGrounded = Physics2D.OverlapCircle(_platformTouchingValidator.position, _radiousChecker, _whatIsPlatform);
+        _isTouchingWall = Physics2D.OverlapCircle(_WallTouchingValidator.position, _radiousChecker, _whatAreWallsAndCeiling);
 
         if (Input.GetKeyDown(KeyCode.UpArrow) && _isGrounded == true)
         {
@@ -95,6 +98,7 @@ public class Player : MonoBehaviour
         {
             FlipHero();
         }
+
         if (_isTouchingWall == true && _isGrounded == false && input != 0)
         {
             _isSlidingWall = true;
@@ -103,15 +107,18 @@ public class Player : MonoBehaviour
         {
             _isSlidingWall = false;
         }
+
         if (_isSlidingWall)
         { 
             RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
         }
+
         if (Input.GetKeyDown(KeyCode.UpArrow) && _isSlidingWall == true)
         { 
             _isJumpingFromWall = true;
             Invoke("SetWallJumpingToFalse", _wallJumpTime);
         }
+
         if (_isJumpingFromWall == true)
         {
             RB2D.velocity = new Vector2(_xWallForce * -input, _yWallForce);
@@ -126,14 +133,23 @@ public class Player : MonoBehaviour
         {
             anim.SetBool("isRunning", false);
         }
-
         if (_isGrounded == true)
         {
-            anim.SetBool("isJumping", false);  
+            anim.SetBool("isJumping", false);
+            anim.SetBool("isFalling", false);
         }
         else
         {
             anim.SetBool("isJumping", true);
+            if (RB2D.velocity.y < -0.1)
+            {
+                anim.SetBool("isJumping", false);
+                anim.SetBool("isFalling", true);
+            }
+            else
+            {
+                anim.SetBool("isFalling", false);
+            }
         }
     }
 

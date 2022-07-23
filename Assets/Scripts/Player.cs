@@ -108,7 +108,7 @@ public class Player : MonoBehaviour
             _health = value;
             if (value <= 0)
             {
-                Destroy(gameObject);
+                StartCoroutine(Die());
             }
         }
     }
@@ -247,11 +247,18 @@ public class Player : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        anim.SetTrigger("GettingDamage");
         Health -= damage;
     }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(_attackValidator.position,AttackRange);
+    }
+    IEnumerator Die()
+    {
+        anim.SetTrigger("Dying");
+        yield return new WaitForSeconds(0.85f);
+        Destroy(gameObject);
     }
 }

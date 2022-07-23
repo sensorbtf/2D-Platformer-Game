@@ -46,7 +46,7 @@ public class PatrolEnemy : MonoBehaviour
             _health = value < 0 ? _health = 0 : _health = value;
             if (value <= 0)
             {
-                Destroy(gameObject);
+                StartCoroutine(Die());
             }
         }
     }
@@ -115,5 +115,12 @@ public class PatrolEnemy : MonoBehaviour
     public void TakeDamage(int damage)
     {
         Health -= damage;
+        anim.SetTrigger("GettingDamage");
+    }
+    IEnumerator Die()
+    {
+        anim.SetTrigger("Dying");
+        yield return new WaitForSeconds(0.85f);
+        Destroy(gameObject);
     }
 }

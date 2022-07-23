@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
     // Singletone instance
@@ -108,6 +107,7 @@ public class Player : MonoBehaviour
             _health = value;
             if (value <= 0)
             {
+                RB2D.constraints = RigidbodyConstraints2D.FreezePosition;
                 StartCoroutine(Die());
             }
         }
@@ -147,6 +147,17 @@ public class Player : MonoBehaviour
             StartCoroutine(JumpOff());
         }
 
+        if (Input.GetKeyDown(KeyCode.UpArrow) && _isSlidingWall == true)
+        {
+            _isJumpingFromWall = true;
+            Invoke("SetWallJumpingToFalse", _wallJumpTime);
+        }
+
+        if (_isJumpingFromWall == true)
+        {
+            RB2D.velocity = new Vector2(_xWallForce * -input, _yWallForce);
+        }
+
         if (Time.time > _nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
@@ -184,17 +195,6 @@ public class Player : MonoBehaviour
         if (_isSlidingWall)
         {
             RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
-        }
-
-        if (Input.GetKeyDown(KeyCode.UpArrow) && _isSlidingWall == true)
-        {
-            _isJumpingFromWall = true;
-            Invoke("SetWallJumpingToFalse", _wallJumpTime);
-        }
-
-        if (_isJumpingFromWall == true)
-        {
-            RB2D.velocity = new Vector2(_xWallForce * -input, _yWallForce);
         }
 
         // animations
@@ -250,6 +250,11 @@ public class Player : MonoBehaviour
         anim.SetTrigger("GettingDamage");
         Health -= damage;
     }
+    public void PushBack(float pushBackForce)
+    {
+        Vector2 direction = (transform.position - PatrolEnemy.Instance.transform.position).normalized;
+        RB2D.AddForce(direction * pushBackForce);
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
@@ -258,7 +263,7 @@ public class Player : MonoBehaviour
     IEnumerator Die()
     {
         anim.SetTrigger("Dying");
-        yield return new WaitForSeconds(0.85f);
+        yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
     }
 }

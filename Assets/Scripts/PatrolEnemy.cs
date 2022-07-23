@@ -13,6 +13,8 @@ public class PatrolEnemy : MonoBehaviour
     [SerializeField]
     private int _damage;
     [SerializeField]
+    private float _pushBackForce;
+    [SerializeField]
     private float _startWaitTime;
 
     [SerializeField]
@@ -37,6 +39,11 @@ public class PatrolEnemy : MonoBehaviour
     {
         get { return _damage; }
         set { _damage = value < 0 ? _damage = 0 : _damage = value; }
+    }
+    public float PushBackForce
+    {
+        get { return _pushBackForce * 1000; }
+        set { _pushBackForce = value < 0 ? _pushBackForce = 0 : _pushBackForce = value; }
     }
     public int Health
     {
@@ -110,6 +117,7 @@ public class PatrolEnemy : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             Player.Instance.TakeDamage(Damage);
+            Player.Instance.PushBack(PushBackForce);
         }
     }
     public void TakeDamage(int damage)
@@ -120,7 +128,7 @@ public class PatrolEnemy : MonoBehaviour
     IEnumerator Die()
     {
         anim.SetTrigger("Dying");
-        yield return new WaitForSeconds(0.85f);
+        yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
     }
 }

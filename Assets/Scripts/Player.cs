@@ -17,14 +17,14 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float  jumpForce = 30;
     [SerializeField]
-    private Rigidbody2D RB2D;
+    private Rigidbody2D rB2D;
     [SerializeField]
     private float  wallSlidingSpeed;
     [SerializeField]
     private float  timeBetweenAttacks; 
-    private float  nextAttackTime;
     [SerializeField]
     private float  attackRange;
+    private float nextAttackTime;
 
     [SerializeField]
     private GameObject Blood;
@@ -85,34 +85,35 @@ public class Player : MonoBehaviour
     private AudioClip deathSound;
 
     // Properties for most used fields
+    public Rigidbody2D RB2D { get => rB2D; set => rB2D = value; }
     public float Speed
     {
-        get { return  speed; }
+        get => speed;
         set {  speed = value < 0 ?  speed = 0 :  speed = value; }
     }
     public float JumpForce
     {
-        get { return  jumpForce; }
+        get => jumpForce;
         set {  jumpForce = value < 0 ?  jumpForce = 0 :  jumpForce = value; }
     }
     public float WallSlidingSpeed
     {
-        get { return  wallSlidingSpeed; }
+        get => wallSlidingSpeed;
         set {  wallSlidingSpeed = value < 0 ?  wallSlidingSpeed = 0 :  wallSlidingSpeed = value; }
     }
     public float TimeBetweenAtacks
     {
-        get { return timeBetweenAttacks; }
+        get => timeBetweenAttacks;
         set { timeBetweenAttacks = value < 0 ? timeBetweenAttacks = 0 : timeBetweenAttacks = value; }
     }
     public float AttackRange
     {
-        get { return  attackRange; }
+        get => attackRange;
         set {  attackRange = value < 0 ?  attackRange = 0 :  attackRange = value; }
     }
     public int Damage
     {
-        get { return  damage; }
+        get => damage;
         set {  damage = value < 0 ?  damage = 0 :  damage = value; }
     }
     public int Health
@@ -123,15 +124,14 @@ public class Player : MonoBehaviour
              health = value;
             if (value <= 0)
             {
-                RB2D.constraints = RigidbodyConstraints2D.FreezePosition;
+                rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
                 StartCoroutine(Die());
             }
         }
     }
-
     private void Start()
     {
-        RB2D = GetComponent<Rigidbody2D>();
+        rB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
         audioSource = GetComponent<AudioSource>();
@@ -186,11 +186,11 @@ public class Player : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll( attackValidator.position, AttackRange,  whatAreEnemies);
+                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, AttackRange,  whatAreEnemies);
                 StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
                 foreach (Collider2D enemies in enemiesToDamage)
                 {
-                    PatrolEnemy.Instance.TakeDamage(Damage);
+                    enemies.GetComponent<Enemy>().TakeDamage(damage);
                 }
 
                 anim.SetTrigger("Attacking");
@@ -279,16 +279,6 @@ public class Player : MonoBehaviour
 
         SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
     }
-    public void PushBack(float pushBackForce)
-    {
-        Vector2 direction = (transform.position - PatrolEnemy.Instance.transform.position).normalized;
-        RB2D.AddForce(direction * pushBackForce);
-    }
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere( attackValidator.position,AttackRange);
-    }
     IEnumerator Die()
     {
         SoundManager.Instance.PlayPlayerEffects(deathSound);
@@ -297,6 +287,7 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
     }
+
     //Method for jumping off from platform
     IEnumerator JumpOff()
     {
@@ -318,5 +309,11 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreLayerCollision(PlayerLayer, EnemyLayer, false);
 
         SoundManager.Instance.MusicSource.pitch = 1f;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackValidator.position, AttackRange);
     }
 }

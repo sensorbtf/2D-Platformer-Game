@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
 
     public Collider2D playerCollider;
     public Collider2D mapCollider;
+    public Collider2D enemyCollider;
 
     // Wall-jumping fields
     private bool _isJumpingFromWall;
@@ -238,17 +239,11 @@ public class Player : MonoBehaviour
     {
         _isJumpingFromWall = false;
     }
-    //Method for jumping off from platform
-    IEnumerator JumpOff()
-    {
-        Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
-        yield return new WaitForSeconds(0.2f);
-        Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
-    }
     public void TakeDamage(int damage)
     {
         anim.SetTrigger("GettingDamage");
         Health -= damage;
+        StartCoroutine(TemporaryGodmode());
     }
     public void PushBack(float pushBackForce)
     {
@@ -265,5 +260,20 @@ public class Player : MonoBehaviour
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
+    }
+    //Method for jumping off from platform
+    IEnumerator JumpOff()
+    {
+        Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
+        yield return new WaitForSeconds(0.2f);
+        Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
+    }
+    //Method for temporary godmode
+    IEnumerator TemporaryGodmode()
+    {
+        anim.SetTrigger("GodModeOn");
+        Physics2D.IgnoreLayerCollision(6, 11, true);
+        yield return new WaitForSeconds(1.5f); // DODAÆ WYSZUKIWANIE warstw po nazwie i pozmidniæ ¿eby nie by³o magic numbers
+        Physics2D.IgnoreLayerCollision(6, 11, false);
     }
 }

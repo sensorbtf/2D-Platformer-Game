@@ -145,12 +145,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e20b9e554923fee48a1a8a7accb338bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: 2
-  _speed: 2
-  _damage: 1
-  _pushBackForce: 2.3
-  _startWaitTime: 2.5
+  health: 2
+  speed: 2
+  damage: 1
+  pushBackForce: 2.2
+  startWaitTime: 1.5
   pointsOfPatrol:
   - {fileID: 0}
   - {fileID: 0}
   Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
+  gettingDamageSound: {fileID: 8300000, guid: 4b7affcb44ccd824a83a4e87ea7fa778, type: 3}
+  runningSound: {fileID: 8300000, guid: e5633a3bf427d7140ad133fa3dd7b63e, type: 3}
+  pushBackSound: {fileID: 8300000, guid: 56809ea93ba26f84ab173be74f2aa741, type: 3}

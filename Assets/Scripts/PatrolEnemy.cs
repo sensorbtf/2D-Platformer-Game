@@ -7,22 +7,22 @@ public class PatrolEnemy : MonoBehaviour
     public static PatrolEnemy Instance { get; private set; }
 
     [SerializeField]
-    private int _health = 2;
+    private int  health = 2;
     [SerializeField]
-    private float _speed = 2;
+    private float  speed = 2;
     [SerializeField]
-    private int _damage = 1;
+    private int  damage = 1;
     [SerializeField]
-    private float _pushBackForce = 2.2f;
+    private float  pushBackForce = 2.2f;
     [SerializeField]
-    private float _startWaitTime = 1.5f;
+    private float  startWaitTime = 1.5f;
 
     [SerializeField]
     private Transform[] pointsOfPatrol;
 
-    private float _PatrolWaitTime;
-    private int _currentPointIndex;
-    private bool _isFacingRight;
+    private float  PatrolWaitTime;
+    private int  currentPointIndex;
+    private bool  isFacingRight;
 
     [SerializeField]
     private GameObject Blood;
@@ -31,29 +31,38 @@ public class PatrolEnemy : MonoBehaviour
 
     private Animator anim;
 
+    // Sound
+
+    [SerializeField]
+    private AudioClip gettingDamageSound;
+    [SerializeField]
+    private AudioClip runningSound;    
+    [SerializeField]
+    private AudioClip pushBackSound;
+
     // Properties
 
     public float Speed
     {
-        get { return _speed; }
-        set { _speed = value < 0 ? _speed = 0 : _speed = value; }
+        get { return  speed; }
+        set {  speed = value < 0 ?  speed = 0 :  speed = value; }
     }
     public int Damage
     {
-        get { return _damage; }
-        set { _damage = value < 0 ? _damage = 0 : _damage = value; }
+        get { return  damage; }
+        set {  damage = value < 0 ?  damage = 0 :  damage = value; }
     }
     public float PushBackForce
     {
-        get { return _pushBackForce * 1000; }
-        set { _pushBackForce = value < 0 ? _pushBackForce = 0 : _pushBackForce = value; }
+        get { return  pushBackForce * 1000; }
+        set {  pushBackForce = value < 0 ?  pushBackForce = 0 :  pushBackForce = value; }
     }
     public int Health
     {
-        get { return _health; }
+        get { return  health; }
         set 
         { 
-            _health = value < 0 ? _health = 0 : _health = value;
+             health = value < 0 ?  health = 0 :  health = value;
             if (value <= 0)
             {
                 StartCoroutine(Die());
@@ -65,7 +74,7 @@ public class PatrolEnemy : MonoBehaviour
     {
         transform.position = pointsOfPatrol[0].position;
         anim = GetComponent<Animator>();
-        _PatrolWaitTime = _startWaitTime;
+         PatrolWaitTime =  startWaitTime;
     }
     private void Awake()
     {
@@ -86,40 +95,48 @@ public class PatrolEnemy : MonoBehaviour
             return;
         }
 
-        transform.position = Vector2.MoveTowards(transform.position, pointsOfPatrol[_currentPointIndex].position, Speed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, pointsOfPatrol[ currentPointIndex].position, Speed * Time.deltaTime);
 
-        if (transform.position == pointsOfPatrol[_currentPointIndex].position)
+        if (transform.position == pointsOfPatrol[currentPointIndex].position)
         {
             anim.SetBool("isRunning", false);
-            if (_PatrolWaitTime <= 0)
+            if ( PatrolWaitTime <= 0)
             {
-                if (_currentPointIndex + 1 < pointsOfPatrol.Length)
+                if ( currentPointIndex + 1 < pointsOfPatrol.Length)
                 {
-                    _currentPointIndex++;
+                     currentPointIndex++;
                     FlipEnemy();
                 }
                 else
                 {
-                    _currentPointIndex = 0;
+                     currentPointIndex = 0;
                     FlipEnemy();
                 }
-                _PatrolWaitTime = _startWaitTime;
+                 PatrolWaitTime =  startWaitTime;
             }
             else
             {
-                _PatrolWaitTime -= Time.deltaTime;
+                 PatrolWaitTime -= Time.deltaTime;
             }
         }
         else
         { 
             anim.SetBool("isRunning", true);
+
+            if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
+            {
+                SoundManager.Instance.PlayEnemyEffects(runningSound);
+                SoundManager.Instance.EnemyEffectsSource.Play();
+            }
+            else if (transform.position == pointsOfPatrol[currentPointIndex].position)
+                SoundManager.Instance.EnemyEffectsSource.Stop();
         }
     }
 
     void FlipEnemy()
     {
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
-        _isFacingRight = !_isFacingRight;
+         isFacingRight = ! isFacingRight;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -128,6 +145,8 @@ public class PatrolEnemy : MonoBehaviour
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
             Player.Instance.PushBack(PushBackForce);
+
+            SoundManager.Instance.PlayEnemyEffects(pushBackSound);
         }
     }
     public void TakeDamage(int damage)
@@ -135,6 +154,8 @@ public class PatrolEnemy : MonoBehaviour
         Health -= damage;
         anim.SetTrigger("GettingDamage");
         Instantiate(Blood, transform.position, Quaternion.identity);
+
+        SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
     }
     IEnumerator Die()
     {

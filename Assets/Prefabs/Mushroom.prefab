@@ -148,7 +148,9 @@ MonoBehaviour:
   _health: 2
   _speed: 2
   _damage: 1
+  _pushBackForce: 2.3
   _startWaitTime: 2.5
   pointsOfPatrol:
   - {fileID: 0}
   - {fileID: 0}
+  Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}

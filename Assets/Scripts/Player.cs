@@ -9,13 +9,13 @@ public class Player : MonoBehaviour
 
     // Fundamental Player fields
     [SerializeField]
-    private int _health;
+    private int _health = 3;
     [SerializeField]
-    private int _damage;
+    private int _damage = 1;
     [SerializeField]
-    private float _speed;
+    private float _speed = 5;
     [SerializeField]
-    private float _jumpForce;
+    private float _jumpForce = 30;
     [SerializeField]
     private Rigidbody2D RB2D;
     [SerializeField]
@@ -26,6 +26,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float _attackRange;
 
+    [SerializeField]
+    private GameObject Blood;
 
     // Hero state Checkers
     private bool _isFacingRight = true;
@@ -65,9 +67,7 @@ public class Player : MonoBehaviour
     private float _wallJumpTime;
 
     // Animator
-
     private Animator anim;
-    private static Player instance;
 
     // Properties for most used fields
     public float Speed
@@ -164,7 +164,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(_attackValidator.position, AttackRange, _whatAreEnemies);
-
+                StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
                 foreach (Collider2D enemies in enemiesToDamage)
                 {
                     PatrolEnemy.Instance.TakeDamage(Damage);
@@ -227,11 +227,10 @@ public class Player : MonoBehaviour
         }
     }
 
-
     // Flipping sprite from left to right
     void FlipHero()
     {
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         _isFacingRight = !_isFacingRight;
     }
     // Wall jumping ture/false
@@ -244,6 +243,7 @@ public class Player : MonoBehaviour
         anim.SetTrigger("GettingDamage");
         Health -= damage;
         StartCoroutine(TemporaryGodmode());
+        Instantiate(Blood, transform.position, Quaternion.identity);
     }
     public void PushBack(float pushBackForce)
     {

@@ -5984,6 +5984,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -6077,6 +6078,18 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2d11bf7c5541bd478c6b248d2c6ff5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &717252159 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6555299145930992166, guid: 5dae6d1db778ee340af1ae3310c5ec32, type: 3}
@@ -6445,6 +6458,7 @@ MonoBehaviour:
   _wallSlidingSpeed: 2
   _timeBetweenAtacks: 0.3
   _attackRange: 0.5
+  Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
   _platformTouchingValidator: {fileID: 2080543436}
   _wallTouchingValidator: {fileID: 1340869740}
   _attackValidator: {fileID: 1584664863}
@@ -7019,13 +7033,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33b382a496f40644982b9c6405cd4070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfHearts: 3
-  hearts:
+  _numberOfHearts: 3
+  _hearts:
   - {fileID: 717252160}
   - {fileID: 1438848680}
   - {fileID: 1006966674}
-  fullHeart: {fileID: 21300000, guid: ba5696f589783134eb13edae77070958, type: 3}
-  brokenHeart: {fileID: 21300000, guid: 8e94700a3eb058a4ca2a33b08fb1ddd3, type: 3}
+  _fullHeart: {fileID: 21300000, guid: ba5696f589783134eb13edae77070958, type: 3}
+  _brokenHeart: {fileID: 21300000, guid: 8e94700a3eb058a4ca2a33b08fb1ddd3, type: 3}
 --- !u!114 &1762044820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7247,10 +7261,6 @@ PrefabInstance:
     - target: {fileID: 3245668995661878317, guid: ffc0d3ef52a2a3946a52d2e82687c33d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245668995661878318, guid: ffc0d3ef52a2a3946a52d2e82687c33d, type: 3}
-      propertyPath: _pushBackForce
-      value: 2.3
       objectReference: {fileID: 0}
     - target: {fileID: 3245668995661878318, guid: ffc0d3ef52a2a3946a52d2e82687c33d, type: 3}
       propertyPath: pointsOfPatrol.Array.data[0]

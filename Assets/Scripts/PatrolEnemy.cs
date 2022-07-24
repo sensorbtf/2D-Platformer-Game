@@ -7,15 +7,15 @@ public class PatrolEnemy : MonoBehaviour
     public static PatrolEnemy Instance { get; private set; }
 
     [SerializeField]
-    private int _health;
+    private int _health = 2;
     [SerializeField]
-    private float _speed;
+    private float _speed = 2;
     [SerializeField]
-    private int _damage;
+    private int _damage = 1;
     [SerializeField]
-    private float _pushBackForce;
+    private float _pushBackForce = 2.2f;
     [SerializeField]
-    private float _startWaitTime;
+    private float _startWaitTime = 1.5f;
 
     [SerializeField]
     private Transform[] pointsOfPatrol;
@@ -23,6 +23,9 @@ public class PatrolEnemy : MonoBehaviour
     private float _PatrolWaitTime;
     private int _currentPointIndex;
     private bool _isFacingRight;
+
+    [SerializeField]
+    private GameObject Blood;
 
     // Animator
 
@@ -77,6 +80,12 @@ public class PatrolEnemy : MonoBehaviour
     }
     private void Update()
     {
+        if (Health <= 0)
+        {
+            GetComponent<Collider2D>().enabled = false;
+            return;
+        }
+
         transform.position = Vector2.MoveTowards(transform.position, pointsOfPatrol[_currentPointIndex].position, Speed * Time.deltaTime);
 
         if (transform.position == pointsOfPatrol[_currentPointIndex].position)
@@ -109,13 +118,14 @@ public class PatrolEnemy : MonoBehaviour
 
     void FlipEnemy()
     {
-        transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         _isFacingRight = !_isFacingRight;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
             Player.Instance.PushBack(PushBackForce);
         }
@@ -124,6 +134,7 @@ public class PatrolEnemy : MonoBehaviour
     {
         Health -= damage;
         anim.SetTrigger("GettingDamage");
+        Instantiate(Blood, transform.position, Quaternion.identity);
     }
     IEnumerator Die()
     {

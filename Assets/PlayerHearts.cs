@@ -5,37 +5,47 @@ using UnityEngine.UI;
 
 public class PlayerHearts : MonoBehaviour
 {
-    public int numberOfHearts;
-    public Image[] hearts;
-    public Sprite fullHeart;
-    public Sprite brokenHeart;
+    [SerializeField]
+    private int _numberOfHearts = 3;
+    [SerializeField]
+    private Image[] _hearts;
+    [SerializeField]
+    private Sprite _fullHeart;
+    [SerializeField]
+    private Sprite _brokenHeart;
+
+    public int NumberOfHearts
+    {
+        get { return _numberOfHearts; }
+        set { _numberOfHearts = value < 0 ? _numberOfHearts = 0 : _numberOfHearts = value; }
+    }
 
     private void Update()
     {
 
-        if (Player.Instance.Health > numberOfHearts)
+        if (Player.Instance.Health > NumberOfHearts)
         {
-            Player.Instance.Health = numberOfHearts;
+            Player.Instance.Health = NumberOfHearts;
         }
 
-        for (int i = 0; i < hearts.Length; i++)
+        for (int i = 0; i < _hearts.Length; i++)
         {
-            if (i < numberOfHearts)
+            if (i < NumberOfHearts)
             {
-                hearts[i].enabled = true;
+                _hearts[i].enabled = true;
             }
             else
             {
-                hearts[i].enabled = false;
+                _hearts[i].enabled = false;
             }
 
             if (i < Player.Instance.Health)
             {
-                hearts[i].sprite = fullHeart;
+                _hearts[i].sprite = _fullHeart;
             }
             else
             {
-                hearts[i].sprite = brokenHeart;
+                _hearts[i].sprite = _brokenHeart;
             }
 
         }

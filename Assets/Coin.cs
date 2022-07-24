@@ -7,7 +7,10 @@ public class Coin : MonoBehaviour
 {
     void OnTriggerEnter2D(Collider2D collision)
     {
-        CoinsCounter.Instance.NumberOfCoins++;
-        Destroy(gameObject);
+        if (collision.CompareTag("Player"))
+        {
+            CoinsCounter.Instance.NumberOfCoins++;
+            Destroy(gameObject);
+        }
     }
 }

@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -104,13 +104,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: goblin_spritesheet_0
+      name: Runing
       rect:
         serializedVersion: 2
-        x: 3
+        x: 2
         y: 64
-        width: 12
-        height: 15
+        width: 13
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,13 +125,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_1
+      name: Dying2
       rect:
         serializedVersion: 2
         x: 18
-        y: 55
+        y: 48
         width: 11
-        height: 9
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -146,13 +146,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_2
+      name: Runing2
       rect:
         serializedVersion: 2
         x: 18
-        y: 65
+        y: 64
         width: 13
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -167,13 +167,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_3
+      name: Dying3
       rect:
         serializedVersion: 2
         x: 35
-        y: 55
+        y: 48
         width: 9
-        height: 7
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -188,7 +188,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_4
+      name: Runing3
       rect:
         serializedVersion: 2
         x: 35
@@ -209,11 +209,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_5
+      name: Runing4
       rect:
         serializedVersion: 2
         x: 51
-        y: 63
+        y: 64
         width: 12
         height: 16
       alignment: 0
@@ -230,7 +230,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_6
+      name: Runing5
       rect:
         serializedVersion: 2
         x: 66
@@ -251,7 +251,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_7
+      name: Runing6
       rect:
         serializedVersion: 2
         x: 82
@@ -272,13 +272,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_8
+      name: attack
       rect:
         serializedVersion: 2
         x: 4
         y: 32
         width: 12
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -293,13 +293,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_9
+      name: attack2
       rect:
         serializedVersion: 2
         x: 28
         y: 32
         width: 16
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -314,13 +314,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_10
+      name: attack3
       rect:
         serializedVersion: 2
         x: 51
         y: 32
         width: 20
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -335,13 +335,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_11
+      name: attack4
       rect:
         serializedVersion: 2
         x: 74
         y: 32
         width: 20
-        height: 13
+        height: 15
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -356,7 +356,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_12
+      name: iddle
       rect:
         serializedVersion: 2
         x: 2
@@ -377,7 +377,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_13
+      name: iddle2
       rect:
         serializedVersion: 2
         x: 18
@@ -398,13 +398,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_14
+      name: iddle3
       rect:
         serializedVersion: 2
         x: 34
         y: 16
         width: 12
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -419,13 +419,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_15
+      name: iddle4
       rect:
         serializedVersion: 2
         x: 50
         y: 16
         width: 12
-        height: 14
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -440,13 +440,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_16
+      name: damaged2
       rect:
         serializedVersion: 2
         x: 33
         y: 0
         width: 13
-        height: 15
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -461,7 +461,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_17
+      name: damaged
       rect:
         serializedVersion: 2
         x: 2
@@ -482,7 +482,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_18
+      name: Dying1
       rect:
         serializedVersion: 2
         x: 2
@@ -524,13 +524,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_20
+      name: Dying
       rect:
         serializedVersion: 2
         x: 51
-        y: 55
+        y: 48
         width: 9
-        height: 7
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -545,13 +545,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_21
+      name: Dying4
       rect:
         serializedVersion: 2
         x: 66
-        y: 54
+        y: 48
         width: 11
-        height: 9
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -566,13 +566,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_22
+      name: Dying5
       rect:
         serializedVersion: 2
         x: 82
-        y: 54
+        y: 48
         width: 11
-        height: 9
+        height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -587,7 +587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: goblin_spritesheet_23
+      name: damaged1
       rect:
         serializedVersion: 2
         x: 18
@@ -618,30 +618,30 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      goblin_spritesheet_5: 1819557141
-      goblin_spritesheet_9: 474784497
-      goblin_spritesheet_12: -958026393
-      goblin_spritesheet_22: -604970979
-      goblin_spritesheet_20: 1581102996
+      Dying2: 1993006575
+      Dying: 1581102996
+      iddle2: 1374719968
       goblin_spritesheet_19: 1267575801
-      goblin_spritesheet_10: 1692621977
-      goblin_spritesheet_23: -1160438991
-      goblin_spritesheet_2: -1905088684
-      goblin_spritesheet_16: -69435654
-      goblin_spritesheet_6: 1970848223
-      goblin_spritesheet_18: -1635180691
-      goblin_spritesheet_8: -1284850465
-      goblin_spritesheet_13: 1374719968
-      goblin_spritesheet_15: 1824371513
-      goblin_spritesheet_1: 1993006575
-      goblin_spritesheet_17: -1407266921
-      goblin_spritesheet_3: -608559540
-      goblin_spritesheet_21: 251122554
-      goblin_spritesheet_0: -897193908
-      goblin_spritesheet_4: 311921255
-      goblin_spritesheet_11: -1913822934
-      goblin_spritesheet_7: -840013327
-      goblin_spritesheet_14: -1676205599
+      Runing3: 311921255
+      Dying5: -604970979
+      attack3: 1692621977
+      damaged: -1407266921
+      attack2: 474784497
+      attack4: -1913822934
+      Dying1: -1635180691
+      Dying4: 251122554
+      iddle4: 1824371513
+      Runing4: 1819557141
+      iddle: -958026393
+      Runing5: 1970848223
+      attack: -1284850465
+      damaged1: -1160438991
+      Runing2: -1905088684
+      Runing: -897193908
+      Runing6: -840013327
+      Dying3: -608559540
+      iddle3: -1676205599
+      damaged2: -69435654
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

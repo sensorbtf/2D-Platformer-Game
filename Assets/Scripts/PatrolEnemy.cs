@@ -69,7 +69,7 @@ public class PatrolEnemy : Enemy
 
             if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
             {
-                SoundManager.Instance.PlayPlayerEffects(runningSound);
+                SoundManager.Instance.PlayEnemyEffects(runningSound);
                 SoundManager.Instance.EnemyEffectsSource.Play();
             }
             else if (transform.position == pointsOfPatrol[currentPointIndex].position)

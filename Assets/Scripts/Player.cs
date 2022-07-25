@@ -281,11 +281,13 @@ public class Player : MonoBehaviour
     }
     IEnumerator Die()
     {
-        SoundManager.Instance.PlayPlayerEffects(deathSound);
-
+        SoundManager.Instance.MuteDespiteMusic();
+        SoundManager.Instance.PlayMusic(deathSound);
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
+
+        Time.timeScale = 0;
     }
 
     //Method for jumping off from platform

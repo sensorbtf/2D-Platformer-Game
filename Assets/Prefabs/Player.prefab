@@ -206,7 +206,7 @@ MonoBehaviour:
   damage: 1
   speed: 5
   jumpForce: 30
-  RB2D: {fileID: 7528215259146596975}
+  rB2D: {fileID: 0}
   wallSlidingSpeed: 3
   timeBetweenAttacks: 0.3
   attackRange: 0.5
@@ -234,7 +234,7 @@ MonoBehaviour:
   getDamagedSound: {fileID: 8300000, guid: f290e488c013f4e4285663577b1de04b, type: 3}
   jumpedDownSound: {fileID: 8300000, guid: f4d07e90d3250bb4aaf4ef4b46125a0e, type: 3}
   attackSound: {fileID: 8300000, guid: 403d7d2ffa265f2458782e87261eab9c, type: 3}
-  deathSound: {fileID: 8300000, guid: 337e5262d715d594b90d47aefa080997, type: 3}
+  deathSound: {fileID: 8300000, guid: e084e9750c6181341be6d347323e0d88, type: 3}
 --- !u!95 &7528215259146596968
 Animator:
   serializedVersion: 4

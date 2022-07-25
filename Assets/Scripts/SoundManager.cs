@@ -7,7 +7,7 @@ public class SoundManager : MonoBehaviour
 	public AudioSource MusicSource;
 	public AudioSource PlayerEffectsSource;
 	public AudioSource PlayerWalkingSource;
-
+	//public AudioSource EnemyWalkingsSource;
 	public AudioSource EnemyEffectsSource;
 	public AudioSource EnviromentEffectSource;
 
@@ -40,6 +40,11 @@ public class SoundManager : MonoBehaviour
 		PlayerEffectsSource.clip = clip;
 		PlayerEffectsSource.Play();
 	}
+	//public void PlayEnemyWalkingEffects(AudioClip clip)
+	//{
+	//	EnemyWalkingsSource.clip = clip;
+	//	EnemyWalkingsSource.Play();
+	//}
 	public void PlayEnemyEffects(AudioClip clip)
 	{
 		EnemyEffectsSource.clip = clip;
@@ -50,5 +55,12 @@ public class SoundManager : MonoBehaviour
 		EnviromentEffectSource.clip = clip;
 		EnviromentEffectSource.Play();
 	}
-
+	public void MuteDespiteMusic()
+	{ 
+		MusicSource.loop = false;
+		PlayerEffectsSource.mute = true;
+		EnemyEffectsSource.mute = true;
+		EnviromentEffectSource.mute = true;
+		PlayerWalkingSource.mute = true;
+	}
 }

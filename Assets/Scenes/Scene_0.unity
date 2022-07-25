@@ -5331,6 +5331,11 @@ Transform:
   m_Father: {fileID: 1959619212}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &384090205 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 7528215259146596975, guid: 93e081f832968f141bd4630ad3206215, type: 3}
+  m_PrefabInstance: {fileID: 7528215258053787557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &433827783 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1731055861888250631, guid: 7c30226f21c3f7e4abba4cb85a8bf97e, type: 3}
@@ -7543,9 +7548,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
+      propertyPath: rB2D
+      value: 
+      objectReference: {fileID: 384090205}
+    - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
       propertyPath: mapCollider
       value: 
       objectReference: {fileID: 479001229}
+    - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
+      propertyPath: timeBetweenAttacks
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 7528215259146596972, guid: 93e081f832968f141bd4630ad3206215, type: 3}
       propertyPath: m_RootOrder
       value: 3

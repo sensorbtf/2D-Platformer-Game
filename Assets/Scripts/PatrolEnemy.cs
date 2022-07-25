@@ -5,12 +5,9 @@ using UnityEngine;
 
 public class PatrolEnemy : Enemy
 {
-    [SerializeField]
-    private float speed = 2;
-    [SerializeField]
-    private float  startWaitTime = 1.5f;
-    [SerializeField]
-    private Transform[] pointsOfPatrol;
+    [SerializeField]    private float speed = 2;
+    [SerializeField]    private float  startWaitTime = 1.5f;
+    [SerializeField]    private Transform[] pointsOfPatrol;
 
     private float  PatrolWaitTime;
     private int  currentPointIndex;
@@ -21,10 +18,9 @@ public class PatrolEnemy : Enemy
 
     public float Speed
     {
-        get { return  speed; }
-        set {  speed = value < 0 ?  speed = 0 :  speed = value; }
+        get => speed;
+        set { speed = value < 0 ? speed = 0 : speed = value; }
     }
-
     private void Start()
     {
         transform.position = pointsOfPatrol[0].position;

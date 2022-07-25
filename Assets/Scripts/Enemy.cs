@@ -6,31 +6,26 @@ public class Enemy : MonoBehaviour
 {
     //essential fields
 
-    [SerializeField]
-    private int health = 2;
-    [SerializeField]
-    private int damage = 1;
-    [SerializeField]
-    private float pushBackForce = 2.2f;
+    [SerializeField]    private int health = 2;
+    [SerializeField]    private int damage = 1;
+    [SerializeField]    private float pushBackForce = 2.2f;
 
-    [SerializeField]
-    private GameObject Blood;
+    [SerializeField]    private GameObject Blood;
 
     //properties
-
     public int Health
     {
-        get { return health; }
+        get => health;
         set { health = value < 0 ? health = 0 : health = value; }
     }
     public int Damage
     {
-        get { return damage; }
+        get => damage;
         set { damage = value < 0 ? damage = 0 : damage = value; }
     }
     public float PushBackForce
     {
-        get { return pushBackForce * 1000; }
+        get => pushBackForce * 1000;
         set { pushBackForce = value < 0 ? pushBackForce = 0 : pushBackForce = value; }
     }
 
@@ -40,14 +35,10 @@ public class Enemy : MonoBehaviour
 
     // Sound
 
-    [SerializeField]
-    private AudioClip gettingDamageSound;
-    [SerializeField]
-    protected AudioClip pushBackSound;
-    [SerializeField]
-    protected AudioClip runningSound;
-    [SerializeField]
-    protected AudioClip dyingSound;
+    [SerializeField]    private AudioClip gettingDamageSound;
+    [SerializeField]    protected AudioClip pushBackSound;
+    [SerializeField]    protected AudioClip runningSound;
+    [SerializeField]    protected AudioClip dyingSound;
     private void Start()
     {
         anim = GetComponent<Animator>();

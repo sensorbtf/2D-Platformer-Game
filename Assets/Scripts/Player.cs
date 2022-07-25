@@ -8,62 +8,55 @@ public class Player : MonoBehaviour
     public static Player Instance { get; private set; }
 
     // Fundamental Player fields
-    [SerializeField]
-    private int  health = 3;
-    [SerializeField]
-    private int  damage = 1;
-    [SerializeField]
-    private float  speed = 5;
-    [SerializeField]
-    private float  jumpForce = 30;
-    [SerializeField]
+    [SerializeField]    private int  health = 3;
+    [SerializeField]    private int  damage = 1;
+    [SerializeField]    private float  speed = 5;
+    [SerializeField]    private float  jumpForce = 30;
+    [SerializeField]    private float  wallSlidingSpeed = 3;
+    [SerializeField]    private float  timeBetweenAttacks = 0.4f; 
+    [SerializeField]    private float  attackRange = 0.5f;
+    
     private Rigidbody2D rB2D;
-    [SerializeField]
-    private float  wallSlidingSpeed;
-    [SerializeField]
-    private float  timeBetweenAttacks; 
-    [SerializeField]
-    private float  attackRange;
-    private float nextAttackTime;
+    private float input;
 
-    [SerializeField]
-    private GameObject Blood;
+    [SerializeField]    private GameObject Blood;
+
+    // Hero Dashing
+
+    private bool canDash = true;
+    private float dashingPower = 100;
+    private readonly float dashingTime = 0.2f;
+    private float dashingCooldown = 0.5f;
+
+    private float doubleTapTime;
+    private KeyCode lastKeyCode;
 
     // Hero state Checkers
     private bool  isFacingRight = true;
     private bool  isGrounded;
     private bool  isTouchingWall;
     private bool  isSlidingWall;
+    private float nextAttackTime;
 
     // Hero move checkers
 
-    [SerializeField]
-    private Transform  platformTouchingValidator;
-    [SerializeField]
-    private Transform  wallTouchingValidator;
-    [SerializeField]
-    private Transform  attackValidator;
+    [SerializeField]    private Transform  platformTouchingValidator;
+    [SerializeField]    private Transform  wallTouchingValidator;
+    [SerializeField]    private Transform  attackValidator;
 
-    [SerializeField]
-    private float  radiousChecker;
-    [SerializeField]
-    private LayerMask  whatIsPlatform;
-    [SerializeField]
-    private LayerMask  whatAreWallsAndCeiling;
-    [SerializeField]
-    private LayerMask  whatAreEnemies;
+    [SerializeField]    private float  radiousChecker;
+    [SerializeField]    private LayerMask  whatIsPlatform;
+    [SerializeField]    private LayerMask  whatAreWallsAndCeiling;
+    [SerializeField]    private LayerMask  whatAreEnemies;
 
-    public Collider2D playerCollider;
-    public Collider2D mapCollider;
+    [SerializeField]    private  Collider2D playerCollider;
+    [SerializeField]    private Collider2D mapCollider;
 
     // Wall-jumping fields
     private bool  isJumpingFromWall;
-    [SerializeField]
-    private float  xWallForce;
-    [SerializeField]
-    private float  yWallForce;
-    [SerializeField]
-    private float  wallJumpTime;
+    [SerializeField]    private float  xWallForce = 5;
+    [SerializeField]    private float  yWallForce = 20;
+    [SerializeField]    private float  wallJumpTime = 0.1f;
 
     // Animator
     private Animator anim;
@@ -71,35 +64,30 @@ public class Player : MonoBehaviour
     // Sound
 
     AudioSource audioSource;
-    [SerializeField]
-    private AudioClip jumpSound;
-    [SerializeField]
-    private AudioClip runningSound;
-    [SerializeField]
-    private AudioClip getDamagedSound;
-    [SerializeField]
-    private AudioClip jumpedDownSound;
-    [SerializeField]
-    private AudioClip attackSound;
-    [SerializeField]
-    private AudioClip deathSound;
+
+    [SerializeField]    private AudioClip jumpSound;
+    [SerializeField]    private AudioClip runningSound;
+    [SerializeField]    private AudioClip getDamagedSound;
+    [SerializeField]    private AudioClip jumpedDownSound;
+    [SerializeField]    private AudioClip attackSound;
+    [SerializeField]    private AudioClip deathSound;
 
     // Properties for most used fields
     public Rigidbody2D RB2D { get => rB2D; set => rB2D = value; }
     public float Speed
     {
         get => speed;
-        set {  speed = value < 0 ?  speed = 0 :  speed = value; }
+        set {  speed = value < 0 ?  speed = 0 : speed = value; }
     }
     public float JumpForce
     {
         get => jumpForce;
-        set {  jumpForce = value < 0 ?  jumpForce = 0 :  jumpForce = value; }
+        set {  jumpForce = value < 0 ?  jumpForce = 0 : jumpForce = value; }
     }
     public float WallSlidingSpeed
     {
         get => wallSlidingSpeed;
-        set {  wallSlidingSpeed = value < 0 ?  wallSlidingSpeed = 0 :  wallSlidingSpeed = value; }
+        set {  wallSlidingSpeed = value < 0 ?  wallSlidingSpeed = 0 : wallSlidingSpeed = value; }
     }
     public float TimeBetweenAtacks
     {
@@ -109,19 +97,19 @@ public class Player : MonoBehaviour
     public float AttackRange
     {
         get => attackRange;
-        set {  attackRange = value < 0 ?  attackRange = 0 :  attackRange = value; }
+        set {  attackRange = value < 0 ? attackRange = 0 : attackRange = value; }
     }
     public int Damage
     {
         get => damage;
-        set {  damage = value < 0 ?  damage = 0 :  damage = value; }
+        set {  damage = value < 0 ?  damage = 0 : damage = value; }
     }
     public int Health
     {
-        get { return  health; }
+        get => health;
         set
         {
-             health = value;
+            health = value;
             if (value <= 0)
             {
                 rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -149,8 +137,7 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        float input = Input.GetAxisRaw("Horizontal");
-        RB2D.velocity = new Vector2(input *  speed, RB2D.velocity.y);
+        input = Input.GetAxisRaw("Horizontal");
 
         isGrounded = Physics2D.OverlapCircle( platformTouchingValidator.position,  radiousChecker,  whatIsPlatform);
         isTouchingWall = Physics2D.OverlapCircle( wallTouchingValidator.position,  radiousChecker,  whatAreWallsAndCeiling);
@@ -165,8 +152,6 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow) &&  isGrounded == true)
         {
             StartCoroutine(JumpOff());
-
-            SoundManager.Instance.PlayPlayerEffects(jumpedDownSound);
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow) &&  isSlidingWall == true)
@@ -176,22 +161,17 @@ public class Player : MonoBehaviour
 
             SoundManager.Instance.PlayPlayerEffects(jumpSound);
         }
-
         if ( isJumpingFromWall == true)
         {
             RB2D.velocity = new Vector2( xWallForce * -input,  yWallForce);
         }
-
         if (Time.time > nextAttackTime)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, AttackRange,  whatAreEnemies);
+               
                 StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
-                foreach (Collider2D enemies in enemiesToDamage)
-                {
-                    enemies.GetComponent<Enemy>().TakeDamage(damage);
-                }
+
 
                 anim.SetTrigger("Attacking");
                 nextAttackTime = Time.time + TimeBetweenAtacks;
@@ -258,6 +238,45 @@ public class Player : MonoBehaviour
             }
         }
     }
+    private void FixedUpdate()
+    {
+        RB2D.velocity = new Vector2(input * speed, RB2D.velocity.y);
+
+        if (Input.GetKeyDown(KeyCode.RightArrow) && canDash == true && isGrounded == false)
+        {
+            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.RightArrow)
+            {
+                StartCoroutine(Dash(1));
+            }
+            else
+            {
+                doubleTapTime = Time.time + 0.5f;
+            }
+
+            lastKeyCode = KeyCode.RightArrow;
+        }
+        if (Input.GetKeyDown(KeyCode.LeftArrow) && canDash == true && isGrounded == false)
+        {
+            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.LeftArrow)
+            {
+                StartCoroutine(Dash(-1));
+            }
+            else
+            {
+                doubleTapTime = Time.time + 0.5f;
+            }
+            lastKeyCode = KeyCode.LeftArrow;
+        }
+    }
+    // Hero attack
+    public void Attack()
+    {
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, AttackRange, whatAreEnemies);
+        foreach (Collider2D enemies in enemiesToDamage)
+        {
+            enemies.GetComponent<Enemy>().TakeDamage(damage);
+        }
+    }
 
     // Flipping sprite from left to right
     void FlipHero()
@@ -293,6 +312,8 @@ public class Player : MonoBehaviour
     //Method for jumping off from platform
     IEnumerator JumpOff()
     {
+        SoundManager.Instance.PlayPlayerEffects(jumpedDownSound);
+
         Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
         yield return new WaitForSeconds(0.2f);
         Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
@@ -312,10 +333,24 @@ public class Player : MonoBehaviour
 
         SoundManager.Instance.MusicSource.pitch = 1f;
     }
+    IEnumerator Dash(float Direction)
+    {
+        Debug.Log("Test");
 
+        canDash = false;
+        RB2D.velocity = new Vector2(RB2D.velocity.x, 0f);
+        RB2D.AddForce(new Vector2(dashingPower * Direction, 0f), ForceMode2D.Impulse);
+        float originalGravity = RB2D.gravityScale;
+        RB2D.gravityScale = 0;
+
+        yield return new WaitForSeconds(dashingCooldown);
+        RB2D.gravityScale = originalGravity;
+        canDash = true;
+    }
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackValidator.position, AttackRange);
     }
+
 }

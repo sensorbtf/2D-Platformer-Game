@@ -71,12 +71,14 @@ public class Enemy : MonoBehaviour
         if (Health <= 0)
         {
             StartCoroutine(Die());
+            SoundManager.Instance.PlayEnemyEffects(dyingSound);
         }
         else
         {
             Instantiate(Blood, transform.position, Quaternion.identity);
+            SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
         }
-        SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
+        
     }
 
     public void PushBack(float pushBackForce)
@@ -87,8 +89,6 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Die()
     {
-        SoundManager.Instance.PlayEnemyEffects(dyingSound);
-
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);

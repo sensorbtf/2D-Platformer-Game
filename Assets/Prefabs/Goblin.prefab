@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1731055861888250630}
   - component: {fileID: 1731055861888250625}
-  - component: {fileID: 1731055861888250628}
   - component: {fileID: 1731055861888250626}
   - component: {fileID: 1731055861888250637}
   m_Layer: 11
@@ -31,8 +30,7 @@ Transform:
   m_LocalPosition: {x: 4.71, y: -3.48, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1731055862231068624}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -88,22 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &1731055861888250628
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731055861888250631}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.03, y: -0}
-  m_Size: {x: 0.87, y: 1}
-  m_Direction: 0
 --- !u!95 &1731055861888250626
 Animator:
   serializedVersion: 4
@@ -147,38 +129,7 @@ MonoBehaviour:
   dyingSound: {fileID: 8300000, guid: 337e5262d715d594b90d47aefa080997, type: 3}
   speed: 2
   startWaitTime: 1.5
-  AttackValidator: {fileID: 0}
+  attackRange: 0
   pointsOfPatrol:
   - {fileID: 0}
   - {fileID: 0}
---- !u!1 &1731055862231068625
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1731055862231068624}
-  m_Layer: 11
-  m_Name: AttackChecker
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1731055862231068624
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1731055862231068625}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.78999996, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1731055861888250630}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

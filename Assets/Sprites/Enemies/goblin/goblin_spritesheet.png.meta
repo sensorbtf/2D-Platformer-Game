@@ -170,9 +170,9 @@ TextureImporter:
       name: Dying3
       rect:
         serializedVersion: 2
-        x: 35
+        x: 32
         y: 48
-        width: 9
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -191,9 +191,9 @@ TextureImporter:
       name: Runing3
       rect:
         serializedVersion: 2
-        x: 35
+        x: 34
         y: 64
-        width: 12
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,9 +212,9 @@ TextureImporter:
       name: Runing4
       rect:
         serializedVersion: 2
-        x: 51
+        x: 50
         y: 64
-        width: 12
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -256,7 +256,7 @@ TextureImporter:
         serializedVersion: 2
         x: 82
         y: 64
-        width: 13
+        width: 14
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -275,9 +275,9 @@ TextureImporter:
       name: attack
       rect:
         serializedVersion: 2
-        x: 4
+        x: 3
         y: 32
-        width: 12
+        width: 13
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -527,9 +527,9 @@ TextureImporter:
       name: Dying
       rect:
         serializedVersion: 2
-        x: 51
+        x: 48
         y: 48
-        width: 9
+        width: 15
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -548,9 +548,9 @@ TextureImporter:
       name: Dying4
       rect:
         serializedVersion: 2
-        x: 66
+        x: 64
         y: 48
-        width: 11
+        width: 16
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -569,9 +569,9 @@ TextureImporter:
       name: Dying5
       rect:
         serializedVersion: 2
-        x: 82
+        x: 81
         y: 48
-        width: 11
+        width: 13
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}

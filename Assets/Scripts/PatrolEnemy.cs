@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PatrolEnemy : Enemy
@@ -8,11 +9,6 @@ public class PatrolEnemy : Enemy
     private float speed = 2;
     [SerializeField]
     private float  startWaitTime = 1.5f;
-
-    [SerializeField]
-    private float attackRange;
-    [SerializeField]
-    private Transform AttackValidator;
     [SerializeField]
     private Transform[] pointsOfPatrol;
 
@@ -29,14 +25,12 @@ public class PatrolEnemy : Enemy
         set {  speed = value < 0 ?  speed = 0 :  speed = value; }
     }
 
-
     private void Start()
     {
         transform.position = pointsOfPatrol[0].position;
-        PatrolWaitTime =  startWaitTime;
+        PatrolWaitTime = startWaitTime;
         anim = GetComponent<Animator>();
     }
-
 
     private void Update()
     {
@@ -75,22 +69,26 @@ public class PatrolEnemy : Enemy
 
             if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
             {
-                SoundManager.Instance.PlayEnemyEffects(runningSound);
+                SoundManager.Instance.PlayPlayerEffects(runningSound);
                 SoundManager.Instance.EnemyEffectsSource.Play();
             }
             else if (transform.position == pointsOfPatrol[currentPointIndex].position)
                 SoundManager.Instance.EnemyEffectsSource.Stop();
         }
-        if (AttackValidator != null)
+
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
         {
-            Collider2D[] playerToDamage = Physics2D.OverlapCircleAll(AttackValidator.position, attackRange, LayerMask.NameToLayer("Player"));
-            foreach (Collider2D player in playerToDamage)
-            {
-                player.GetComponent<Player>().TakeDamage(Damage);
-            } //?
-            anim.SetTrigger("Attacking");
-            Debug.Log("ATTACKED!");
-            SoundManager.Instance.PlayPlayerEffects(pushBackSound);
+            if (anim.parameters.Any(x => x.name == "Attacking"))
+                {
+                anim.SetTrigger("Attacking");
+                }
+            StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
+            Player.Instance.TakeDamage(Damage);
+            PushBack(PushBackForce);
+            SoundManager.Instance.PlayEnemyEffects(pushBackSound);
         }
     }
     void FlipEnemy()
@@ -99,10 +97,5 @@ public class PatrolEnemy : Enemy
         isFacingRight = !isFacingRight;
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(AttackValidator.position, attackRange);
-    }
 
 }

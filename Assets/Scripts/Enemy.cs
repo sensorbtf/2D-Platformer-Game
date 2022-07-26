@@ -5,12 +5,18 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     //essential fields
+    [Header("Enemy parameters")]
+    [SerializeField] private int health = 2;
+    [SerializeField] private int damage = 1;
+    [SerializeField] private float pushBackForce = 2.2f;
 
-    [SerializeField]    private int health = 2;
-    [SerializeField]    private int damage = 1;
-    [SerializeField]    private float pushBackForce = 2.2f;
+    [Header("Coins reward")]
+    [SerializeField] private int minimumCount = 1;
+    [SerializeField] private int maximumCount = 2;
+    [SerializeField] private GameObject coin = null;
 
-    [SerializeField]    private GameObject Blood;
+    [Header("Effects")]
+    [SerializeField] private GameObject Blood;
 
     //properties
     public int Health
@@ -29,16 +35,14 @@ public class Enemy : MonoBehaviour
         set { pushBackForce = value < 0 ? pushBackForce = 0 : pushBackForce = value; }
     }
 
-    // Animator
-    [SerializeField]
     protected Animator anim;
 
     // Sound
-
-    [SerializeField]    private AudioClip gettingDamageSound;
-    [SerializeField]    protected AudioClip pushBackSound;
-    [SerializeField]    protected AudioClip runningSound;
-    [SerializeField]    protected AudioClip dyingSound;
+    [Header("Sounds")]
+    [SerializeField] private AudioClip gettingDamageSound;
+    [SerializeField] protected AudioClip pushBackSound;
+    [SerializeField] protected AudioClip runningSound;
+    [SerializeField] protected AudioClip dyingSound;
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -82,7 +86,18 @@ public class Enemy : MonoBehaviour
     {
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
+        Spawn();
         Destroy(gameObject);
     }
 
+    public void Spawn()
+    {
+        float xPositionDifference = 0;
+        int coinsCount = Random.Range(minimumCount, maximumCount);
+        for (int i = 0; i < coinsCount; i++)
+        {
+            Instantiate(coin, new Vector3(transform.position.x + xPositionDifference, transform.position.y, 0), Quaternion.identity);
+            xPositionDifference += 0.75f;
+        }
+    }
 }

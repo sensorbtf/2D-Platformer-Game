@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class PatrolEnemy : Enemy
 {
-    [SerializeField]    private float speed = 2;
-    [SerializeField]    private float  startWaitTime = 1.5f;
-    [SerializeField]    private Transform[] pointsOfPatrol;
+    [SerializeField] private float speed = 2;
+    [SerializeField] private float  startWaitTime = 1.5f;
+    [SerializeField] private Transform[] pointsOfPatrol;
 
     private float  PatrolWaitTime;
     private int  currentPointIndex;
-
     private bool isFacingRight;
 
     // Properties
@@ -92,6 +91,5 @@ public class PatrolEnemy : Enemy
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         isFacingRight = !isFacingRight;
     }
-
 
 }

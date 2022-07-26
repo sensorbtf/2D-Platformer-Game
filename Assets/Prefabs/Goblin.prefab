@@ -124,9 +124,8 @@ MonoBehaviour:
   pushBackForce: 2.2
   minimumCount: 2
   maximumCount: 3
-  prefab: {fileID: 1652246935848856309, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
+  coin: {fileID: 1652246935848856309, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
   Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
-  anim: {fileID: 0}
   gettingDamageSound: {fileID: 8300000, guid: 4b7affcb44ccd824a83a4e87ea7fa778, type: 3}
   pushBackSound: {fileID: 8300000, guid: 56809ea93ba26f84ab173be74f2aa741, type: 3}
   runningSound: {fileID: 8300000, guid: 79fd09cd43e628841bd0a06477c1fb96, type: 3}
@@ -153,7 +152,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.8125, y: 0.9375}
+    oldSize: {x: 0.8125, y: 1}
     newSize: {x: 15, y: 10}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

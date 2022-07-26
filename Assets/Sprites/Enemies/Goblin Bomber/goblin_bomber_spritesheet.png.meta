@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8f08870214b568140a27fcd7d2cd26a1
+guid: ad5c24539f76ce9418f21590b118fe0f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -104,448 +104,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Runing
+      name: goblin_bomber_spritesheet_0
       rect:
         serializedVersion: 2
-        x: 2
-        y: 64
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d127f14aec9d4c4185576d567fb8fdc
-      internalID: -897193908
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dying2
-      rect:
-        serializedVersion: 2
-        x: 18
+        x: 0
         y: 48
-        width: 11
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a06bb065d1355b74d8ceb303963a5bd2
-      internalID: 1993006575
+      spriteID: d9f8866b152b2b748a3f5a67a0c4cb4f
+      internalID: 319834410
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Runing2
+      name: goblin_bomber_spritesheet_1
       rect:
         serializedVersion: 2
-        x: 18
-        y: 64
-        width: 13
+        x: 16
+        y: 48
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 58cb41dba648de946abeee421a3369de
-      internalID: -1905088684
+      spriteID: 8f6ea47dbef77e6448f226716b4330d6
+      internalID: 1352536961
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dying3
+      name: goblin_bomber_spritesheet_2
       rect:
         serializedVersion: 2
         x: 32
         y: 48
-        width: 15
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ae3e33e38c8f82543baeff8319294d28
-      internalID: -608559540
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Runing3
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 64
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 769d0ce941a998f4e89aa4f3ee15aa2e
-      internalID: 311921255
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Runing4
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 64
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d8f0c1268fcf0f428eb3abbde4681ae
-      internalID: 1819557141
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Runing5
-      rect:
-        serializedVersion: 2
-        x: 66
-        y: 64
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 21d0f6a6a1c69bd4ab7b95b4dd46f085
-      internalID: 1970848223
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Runing6
-      rect:
-        serializedVersion: 2
-        x: 82
-        y: 64
-        width: 14
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7af83cb1c5c6c6d4e8fa24200846a877
-      internalID: -840013327
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 32
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 07d337ae50b562740868186f22ac73f5
-      internalID: -1284850465
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack2
-      rect:
-        serializedVersion: 2
-        x: 28
-        y: 32
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69a97abd03345a44da21a810e4cf2049
-      internalID: 474784497
+      spriteID: a3ff54ddd4185b54cac40f3f206ba375
+      internalID: 1092229521
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack3
-      rect:
-        serializedVersion: 2
-        x: 51
-        y: 32
-        width: 20
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3215da327b51ce64fbbca231a5e4d54e
-      internalID: 1692621977
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: attack4
-      rect:
-        serializedVersion: 2
-        x: 74
-        y: 32
-        width: 20
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 875f410ceda2a484e9b19cd7a7f9a8de
-      internalID: -1913822934
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iddle
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 16
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 50048f7a66ef50c439cf3b74f2d2d813
-      internalID: -958026393
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iddle2
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 16
-        width: 12
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 696c76e700388e944aad64b3ad80e84f
-      internalID: 1374719968
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iddle3
-      rect:
-        serializedVersion: 2
-        x: 34
-        y: 16
-        width: 12
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b6e8e44e30513ae49810b22009e0aab0
-      internalID: -1676205599
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: iddle4
-      rect:
-        serializedVersion: 2
-        x: 50
-        y: 16
-        width: 12
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: baea0283e167bbe498470b27dd4072b1
-      internalID: 1824371513
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: damaged2
-      rect:
-        serializedVersion: 2
-        x: 33
-        y: 0
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 623e10cd54a37324b82f57e8eae8275c
-      internalID: -69435654
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: damaged
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 0
-        width: 13
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 852ec334413d9a24899635ef305686f2
-      internalID: -1407266921
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dying1
-      rect:
-        serializedVersion: 2
-        x: 2
-        y: 49
-        width: 13
-        height: 15
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 42ce695d1a0576c46b5dc29a6f692c72
-      internalID: -1635180691
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: goblin_spritesheet_19
-      rect:
-        serializedVersion: 2
-        x: 35
-        y: 55
-        width: 9
-        height: 7
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 314c8d2d174dbe74791186c4c740ca2e
-      internalID: 1267575801
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Dying
+      name: goblin_bomber_spritesheet_3
       rect:
         serializedVersion: 2
         x: 48
         y: 48
-        width: 15
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be868d52d74e0c742a0b84ccc397342d
-      internalID: 1581102996
+      spriteID: 0d5728e7f3efe0e49a482ecf268824a8
+      internalID: 16157984
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dying4
+      name: goblin_bomber_spritesheet_4
       rect:
         serializedVersion: 2
         x: 64
@@ -553,56 +196,308 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9457fbf79bfb11d47931eec85f7bd8a0
-      internalID: 251122554
+      spriteID: 87bde620f78551b4f8aea182438edee9
+      internalID: -1665419632
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dying5
+      name: goblin_bomber_spritesheet_5
       rect:
         serializedVersion: 2
-        x: 81
+        x: 80
         y: 48
-        width: 13
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: efe08d1eead2e0e47ace183ae5820dc5
-      internalID: -604970979
+      spriteID: 70e436f757633d24cbc2ec005f9c493d
+      internalID: -34400617
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: damaged1
+      name: goblin_bomber_spritesheet_6
       rect:
         serializedVersion: 2
-        x: 18
-        y: 0
-        width: 13
+        x: 0
+        y: 32
+        width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0d30082bf9cc6d44c96c8b002e4ea1e1
-      internalID: -1160438991
+      spriteID: fb690ee9af7398a4e97effa9b147b50f
+      internalID: -1131819596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3453a64e7198c004590580035dc6a2e4
+      internalID: -828219340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a61ad4ee681274d9627e2f43353778
+      internalID: -1343049896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05dc953f30e6c094e8258da82c0c8a98
+      internalID: -1274533657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2df4a89ca2f479941866e1b4f4d533b5
+      internalID: -450674238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 32
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a00b4aebb6147543906616c86eaeded
+      internalID: -844145554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ceed2c13fccf1844aa5e0a5c96769cf8
+      internalID: 232986480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61d82685b4bc308419bc9f57c89644a4
+      internalID: -1734450484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7eb78cb0b9f42e249a01f47ea0dbfe7f
+      internalID: -900453505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1595c970d0c286547825fc8a4558e0bf
+      internalID: 981994815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82303db00d596094b8066a3a5fa2f63b
+      internalID: -913468766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ea8ff7ee586cd48810c2fea71cda2b
+      internalID: 1115033458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_bomber_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09fd661e281b95242990374f8f5fc0bb
+      internalID: -838041056
       vertices: []
       indices: 
       edges: []
@@ -618,30 +513,25 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Dying2: 1993006575
-      Dying: 1581102996
-      iddle2: 1374719968
-      goblin_spritesheet_19: 1267575801
-      Runing3: 311921255
-      Dying5: -604970979
-      attack3: 1692621977
-      damaged: -1407266921
-      attack2: 474784497
-      attack4: -1913822934
-      Dying1: -1635180691
-      Dying4: 251122554
-      iddle4: 1824371513
-      Runing4: 1819557141
-      iddle: -958026393
-      Runing5: 1970848223
-      attack: -1284850465
-      damaged1: -1160438991
-      Runing2: -1905088684
-      Runing: -897193908
-      Runing6: -840013327
-      Dying3: -608559540
-      iddle3: -1676205599
-      damaged2: -69435654
+      goblin_bomber_spritesheet_15: 981994815
+      goblin_bomber_spritesheet_14: -900453505
+      goblin_bomber_spritesheet_3: 16157984
+      goblin_bomber_spritesheet_17: 1115033458
+      goblin_bomber_spritesheet_4: -1665419632
+      goblin_bomber_spritesheet_12: 232986480
+      goblin_bomber_spritesheet_5: -34400617
+      goblin_bomber_spritesheet_16: -913468766
+      goblin_bomber_spritesheet_18: -838041056
+      goblin_bomber_spritesheet_13: -1734450484
+      goblin_bomber_spritesheet_0: 319834410
+      goblin_bomber_spritesheet_10: -450674238
+      goblin_bomber_spritesheet_1: 1352536961
+      goblin_bomber_spritesheet_9: -1274533657
+      goblin_bomber_spritesheet_2: 1092229521
+      goblin_bomber_spritesheet_6: -1131819596
+      goblin_bomber_spritesheet_11: -844145554
+      goblin_bomber_spritesheet_7: -828219340
+      goblin_bomber_spritesheet_8: -1343049896
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

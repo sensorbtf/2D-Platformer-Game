@@ -7,7 +7,6 @@ public class SoundManager : MonoBehaviour
 	public AudioSource MusicSource;
 	public AudioSource PlayerEffectsSource;
 	public AudioSource PlayerWalkingSource;
-	//public AudioSource EnemyWalkingsSource;
 	public AudioSource EnemyEffectsSource;
 	public AudioSource EnviromentEffectSource;
 
@@ -40,11 +39,6 @@ public class SoundManager : MonoBehaviour
 		PlayerEffectsSource.clip = clip;
 		PlayerEffectsSource.Play();
 	}
-	//public void PlayEnemyWalkingEffects(AudioClip clip)
-	//{
-	//	EnemyWalkingsSource.clip = clip;
-	//	EnemyWalkingsSource.Play();
-	//}
 	public void PlayEnemyEffects(AudioClip clip)
 	{
 		EnemyEffectsSource.clip = clip;

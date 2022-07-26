@@ -4,32 +4,43 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     // Singletone instance
-
     public static Player Instance { get; private set; }
 
-    // Fundamental Player fields
-    [SerializeField]    private int  health = 3;
-    [SerializeField]    private int  damage = 1;
-    [SerializeField]    private float  speed = 5;
-    [SerializeField]    private float  jumpForce = 30;
-    [SerializeField]    private float  wallSlidingSpeed = 3;
-    [SerializeField]    private float  timeBetweenAttacks = 0.4f; 
-    [SerializeField]    private float  attackRange = 0.5f;
-    
+    [Header("Player parameters")]
+    [SerializeField] private int  health = 3;
+    [SerializeField] private int  damage = 1;
+    [SerializeField] private float  speed = 5;
+    [SerializeField] private float  jumpForce = 30;
+    [SerializeField] private float  wallSlidingSpeed = 3;
+    [SerializeField] private float  timeBetweenAttacks = 0.4f; 
+    [SerializeField] private float  attackRange = 0.5f;
+    [SerializeField] private float xWallForce = 5;
+    [SerializeField] private float yWallForce = 20;
+    [SerializeField] private float wallJumpTime = 0.1f;
+
     private Rigidbody2D rB2D;
+    private Collider2D playerCollider;
     private float input;
 
-    [SerializeField]    private GameObject Blood;
+
+    [Header("Checkers")]
+    [SerializeField] private Transform platformTouchingValidator;
+    [SerializeField] private Transform wallTouchingValidator;
+    [SerializeField] private Transform attackValidator;
+    [SerializeField] private float radiousChecker;
+    [SerializeField] private LayerMask whatIsPlatform;
+    [SerializeField] private LayerMask whatAreWallsAndCeiling;
+    [SerializeField] private LayerMask whatAreEnemies;
+    [SerializeField] private GameObject Blood;
+    [SerializeField] private Collider2D mapCollider;
 
     // Hero Dashing
 
     private bool canDash = true;
+    private bool isDashing = false;
     private float dashingPower = 100;
-    private readonly float dashingTime = 0.2f;
-    private float dashingCooldown = 0.5f;
-
-    private float doubleTapTime;
-    private KeyCode lastKeyCode;
+    private float dashingTime = 0.2f;
+    private float dashingCooldown = 1f;
 
     // Hero state Checkers
     private bool  isFacingRight = true;
@@ -37,40 +48,19 @@ public class Player : MonoBehaviour
     private bool  isTouchingWall;
     private bool  isSlidingWall;
     private float nextAttackTime;
-
-    // Hero move checkers
-
-    [SerializeField]    private Transform  platformTouchingValidator;
-    [SerializeField]    private Transform  wallTouchingValidator;
-    [SerializeField]    private Transform  attackValidator;
-
-    [SerializeField]    private float  radiousChecker;
-    [SerializeField]    private LayerMask  whatIsPlatform;
-    [SerializeField]    private LayerMask  whatAreWallsAndCeiling;
-    [SerializeField]    private LayerMask  whatAreEnemies;
-
-    [SerializeField]    private  Collider2D playerCollider;
-    [SerializeField]    private Collider2D mapCollider;
-
-    // Wall-jumping fields
     private bool  isJumpingFromWall;
-    [SerializeField]    private float  xWallForce = 5;
-    [SerializeField]    private float  yWallForce = 20;
-    [SerializeField]    private float  wallJumpTime = 0.1f;
 
     // Animator
     private Animator anim;
 
     // Sound
 
-    AudioSource audioSource;
-
-    [SerializeField]    private AudioClip jumpSound;
-    [SerializeField]    private AudioClip runningSound;
-    [SerializeField]    private AudioClip getDamagedSound;
-    [SerializeField]    private AudioClip jumpedDownSound;
-    [SerializeField]    private AudioClip attackSound;
-    [SerializeField]    private AudioClip deathSound;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip runningSound;
+    [SerializeField] private AudioClip getDamagedSound;
+    [SerializeField] private AudioClip jumpedDownSound;
+    [SerializeField] private AudioClip attackSound;
+    [SerializeField] private AudioClip deathSound;
 
     // Properties for most used fields
     public Rigidbody2D RB2D { get => rB2D; set => rB2D = value; }
@@ -121,8 +111,7 @@ public class Player : MonoBehaviour
     {
         rB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-
-        audioSource = GetComponent<AudioSource>();
+        playerCollider = GetComponent<Collider2D>();
     }
     private void Awake()
     {
@@ -137,12 +126,14 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        input = Input.GetAxisRaw("Horizontal");
+        if (isDashing == true)
+            return;
 
+        input = Input.GetAxisRaw("Horizontal");
         isGrounded = Physics2D.OverlapCircle( platformTouchingValidator.position,  radiousChecker,  whatIsPlatform);
         isTouchingWall = Physics2D.OverlapCircle( wallTouchingValidator.position,  radiousChecker,  whatAreWallsAndCeiling);
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) &&  isGrounded == true)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
         {
             RB2D.velocity = Vector2.up * JumpForce;
 
@@ -242,30 +233,12 @@ public class Player : MonoBehaviour
     {
         RB2D.velocity = new Vector2(input * speed, RB2D.velocity.y);
 
-        if (Input.GetKeyDown(KeyCode.RightArrow) && canDash == true && isGrounded == false)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true && isGrounded == false)
         {
-            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.RightArrow)
-            {
-                StartCoroutine(Dash(1));
-            }
+            if (wallTouchingValidator.position.x > platformTouchingValidator.position.x == true )
+            StartCoroutine(Dash(1));
             else
-            {
-                doubleTapTime = Time.time + 0.5f;
-            }
-
-            lastKeyCode = KeyCode.RightArrow;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftArrow) && canDash == true && isGrounded == false)
-        {
-            if (doubleTapTime > Time.time && lastKeyCode == KeyCode.LeftArrow)
-            {
-                StartCoroutine(Dash(-1));
-            }
-            else
-            {
-                doubleTapTime = Time.time + 0.5f;
-            }
-            lastKeyCode = KeyCode.LeftArrow;
+            StartCoroutine(Dash(-1));
         }
     }
     // Hero attack
@@ -335,18 +308,25 @@ public class Player : MonoBehaviour
     }
     IEnumerator Dash(float Direction)
     {
-        Debug.Log("Test");
+        anim.SetTrigger("Dashing");
+        isDashing = true;
 
         canDash = false;
+
         RB2D.velocity = new Vector2(RB2D.velocity.x, 0f);
         RB2D.AddForce(new Vector2(dashingPower * Direction, 0f), ForceMode2D.Impulse);
         float originalGravity = RB2D.gravityScale;
         RB2D.gravityScale = 0;
+        yield return new WaitForSeconds(dashingTime);
+        RB2D.gravityScale = originalGravity;
+
+        isDashing = false;
 
         yield return new WaitForSeconds(dashingCooldown);
-        RB2D.gravityScale = originalGravity;
+
         canDash = true;
     }
+    // Showing attack range of Player
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;

@@ -148,10 +148,15 @@ MonoBehaviour:
   health: 2
   damage: 1
   pushBackForce: 2
+  minimumCount: 0
+  maximumCount: 2
+  prefab: {fileID: 1652246935848856309, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
   Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
+  anim: {fileID: 0}
   gettingDamageSound: {fileID: 8300000, guid: 4b7affcb44ccd824a83a4e87ea7fa778, type: 3}
   pushBackSound: {fileID: 8300000, guid: 56809ea93ba26f84ab173be74f2aa741, type: 3}
   runningSound: {fileID: 8300000, guid: 79fd09cd43e628841bd0a06477c1fb96, type: 3}
+  dyingSound: {fileID: 8300000, guid: 337e5262d715d594b90d47aefa080997, type: 3}
   speed: 2
   startWaitTime: 1.5
   pointsOfPatrol:

@@ -133,6 +133,8 @@ public class Player : MonoBehaviour
     {
         if (isDashing == true)
             return;
+        if (Health <= 0)
+            return;
 
         input = Input.GetAxisRaw("Horizontal");
 
@@ -340,15 +342,18 @@ public class Player : MonoBehaviour
     }
     IEnumerator TemporaryGodmode()
     {
-        int PlayerLayer = LayerMask.NameToLayer("Player");
-        int EnemyLayer = LayerMask.NameToLayer("Enemy");
+        int playerLayer = LayerMask.NameToLayer("Player");
+        int enemyLayer = LayerMask.NameToLayer("Enemy");
+        int projectileLayer = LayerMask.NameToLayer("Projectiles");
 
         SoundManager.Instance.MusicSource.pitch = 1.5f;
 
         anim.SetTrigger("GodModeOn");
-        Physics2D.IgnoreLayerCollision(PlayerLayer, EnemyLayer, true);
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
+        Physics2D.IgnoreLayerCollision(playerLayer, projectileLayer, true);
         yield return new WaitForSeconds(1.5f);
-        Physics2D.IgnoreLayerCollision(PlayerLayer, EnemyLayer, false);
+        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
+        Physics2D.IgnoreLayerCollision(playerLayer, projectileLayer, false);
 
         SoundManager.Instance.MusicSource.pitch = 1f;
     }

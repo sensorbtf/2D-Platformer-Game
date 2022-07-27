@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5492562630433609453}
   - component: {fileID: 2222567098521133055}
   - component: {fileID: 427977305538862535}
-  m_Layer: 11
+  - component: {fileID: 819403634310845273}
+  m_Layer: 12
   m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffbeb2e766057ae418ccc562b7de19fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  damage: 3
-  lifeTime: 4
+  speed: 4
+  damage: 2
+  lifeTime: 3
 --- !u!50 &2222567098521133055
 Rigidbody2D:
   serializedVersion: 4
@@ -133,9 +134,29 @@ CircleCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.25
+--- !u!95 &819403634310845273
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4388832282092376842}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a0860587790194341bebed7b636d67ed, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

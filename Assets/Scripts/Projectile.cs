@@ -18,9 +18,9 @@ public class Projectile : MonoBehaviour
         DirectionOfAttack();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.gameObject.GetComponent<Player>())
         {
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(damage);
@@ -29,6 +29,6 @@ public class Projectile : MonoBehaviour
     }
     void DirectionOfAttack()
     {
-        transform.Translate(speed * Time.deltaTime * Vector2.left);
+        transform.Translate(speed * Time.deltaTime * Vector2.right);
     }
 }

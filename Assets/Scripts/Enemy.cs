@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    //essential fields
     [Header("Enemy parameters")]
     [SerializeField] private int health = 2;
     [SerializeField] private int damage = 1;
@@ -37,7 +36,6 @@ public class Enemy : MonoBehaviour
 
     protected Animator anim;
 
-    // Sound
     [Header("Sounds")]
     [SerializeField] private AudioClip gettingDamageSound;
     [SerializeField] protected AudioClip pushBackSound;
@@ -72,8 +70,7 @@ public class Enemy : MonoBehaviour
         {
             Instantiate(Blood, transform.position, Quaternion.identity);
             SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
-        }
-        
+        }     
     }
 
     public void PushBack(float pushBackForce)

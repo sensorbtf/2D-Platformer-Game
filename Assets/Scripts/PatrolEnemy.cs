@@ -30,10 +30,8 @@ public class PatrolEnemy : Enemy
     private void Update()
     {
         if (Health <= 0)
-        {
-            GetComponent<Collider2D>().enabled = false;
             return;
-        }
+
         transform.position = Vector2.MoveTowards(transform.position, pointsOfPatrol[currentPointIndex].position, Speed * Time.deltaTime);
 
         if (transform.position == pointsOfPatrol[currentPointIndex].position)
@@ -62,17 +60,11 @@ public class PatrolEnemy : Enemy
         {
             anim.SetBool("isRunning", true);
 
-            if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
-            {
-                SoundManager.Instance.PlayEnemyEffects(runningSound);
-                SoundManager.Instance.EnemyEffectsSource.Play();
-            }
-            else if (transform.position == pointsOfPatrol[currentPointIndex].position)
-                SoundManager.Instance.EnemyEffectsSource.Stop();
+            WalkingSoundEffect();
         }
 
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -86,10 +78,19 @@ public class PatrolEnemy : Enemy
             SoundManager.Instance.PlayEnemyEffects(pushBackSound);
         }
     }
-    void FlipEnemy()
+    private void FlipEnemy()
     {
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         isFacingRight = !isFacingRight;
     }
-
+    private void WalkingSoundEffect()
+    {
+        if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
+        {
+            SoundManager.Instance.PlayEnemyEffects(runningSound);
+            SoundManager.Instance.EnemyEffectsSource.Play();
+        }
+        else if (transform.position == pointsOfPatrol[currentPointIndex].position)
+            SoundManager.Instance.EnemyEffectsSource.Stop();
+    }
 }

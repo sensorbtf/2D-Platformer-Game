@@ -17,14 +17,15 @@ public class ShootingEnemy : Enemy
     }
     private void Update()
     {
-        DeActivateColliderOnDeath();
+        if (Health <= 0)
+            return;
         if (Time.time > nextShotTime)
         {
             anim.SetTrigger("Attacking");
             nextShotTime = Time.time + timeBetweenShots;
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -33,16 +34,8 @@ public class ShootingEnemy : Enemy
             SoundManager.Instance.PlayEnemyEffects(pushBackSound);
         }
     }
-    void FireProjectile()
+    protected void FireProjectile()
     {
         Instantiate(projectile, shotPoint.position, shotPoint.rotation);
-    }
-    void DeActivateColliderOnDeath()
-    {
-        if (Health <= 0)
-        {
-            GetComponent<Collider2D>().enabled = false;
-            return;
-        }
     }
 }

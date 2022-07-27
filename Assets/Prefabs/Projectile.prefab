@@ -103,6 +103,7 @@ MonoBehaviour:
   speed: 4
   damage: 2
   lifeTime: 3
+  bombExplode: {fileID: 8300000, guid: 4c83d467774bbf34780130b6d6f937d7, type: 3}
 --- !u!50 &2222567098521133055
 Rigidbody2D:
   serializedVersion: 4

@@ -10,6 +10,8 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
+
         Destroy(gameObject, lifeTime);
     }
 
@@ -17,6 +19,11 @@ public class Projectile : MonoBehaviour
     {
         DirectionOfAttack();
     }
+
+    private Animator anim;
+
+    [Header("Sounds")]
+    [SerializeField] private AudioClip bombExplode;
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -26,6 +33,12 @@ public class Projectile : MonoBehaviour
             Player.Instance.TakeDamage(damage);
             Destroy(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+            SoundManager.Instance.PlayEnviromentEffects(bombExplode);
+        }
+
     }
     void DirectionOfAttack()
     {

@@ -22,7 +22,6 @@ public class SoundManager : MonoBehaviour
 		{
 			Destroy(gameObject);
 		}
-		DontDestroyOnLoad(gameObject);
 	}
 	public void PlayMusic(AudioClip clip)
 	{
@@ -50,11 +49,12 @@ public class SoundManager : MonoBehaviour
 		EnviromentEffectSource.Play();
 	}
 	public void MuteDespiteMusic()
-	{ 
+	{
 		MusicSource.loop = false;
 		PlayerEffectsSource.mute = true;
 		EnemyEffectsSource.mute = true;
 		EnviromentEffectSource.mute = true;
 		PlayerWalkingSource.mute = true;
 	}
+
 }

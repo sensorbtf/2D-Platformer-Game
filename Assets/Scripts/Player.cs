@@ -107,7 +107,6 @@ public class Player : MonoBehaviour
             health = value;
             if (value <= 0)
             {
-                rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
                 StartCoroutine(Die());
             }
         }
@@ -325,6 +324,8 @@ public class Player : MonoBehaviour
     {
         SoundManager.Instance.MuteDespiteMusic();
         SoundManager.Instance.PlayMusic(deathSound);
+
+        rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);

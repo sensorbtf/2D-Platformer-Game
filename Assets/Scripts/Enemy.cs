@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         Health -= damage;
         anim.SetTrigger("GettingDamage");
@@ -73,21 +73,22 @@ public class Enemy : MonoBehaviour
         }     
     }
 
-    public void PushBack(float pushBackForce)
+    protected virtual void PushBack(float pushBackForce)
     {
         Vector2 direction = (transform.position).normalized;
         Player.Instance.RB2D.AddForce(direction * pushBackForce);
     }
 
-    IEnumerator Die()
+    protected IEnumerator Die()
     {
+        GetComponent<Collider2D>().enabled = false;
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Spawn();
         Destroy(gameObject);
     }
 
-    public void Spawn()
+    protected virtual void Spawn()
     {
         float xPositionDifference = 0;
         int coinsCount = Random.Range(minimumCount, maximumCount);

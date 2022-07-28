@@ -10,8 +10,6 @@ public class Projectile : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponent<Animator>();
-
         Destroy(gameObject, lifeTime);
     }
 
@@ -19,8 +17,6 @@ public class Projectile : MonoBehaviour
     {
         DirectionOfAttack();
     }
-
-    private Animator anim;
 
     [Header("Sounds")]
     [SerializeField] private AudioClip bombExplode;

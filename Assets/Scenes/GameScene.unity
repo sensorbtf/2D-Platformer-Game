@@ -7323,6 +7323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1574820495}
+  - component: {fileID: 1574820496}
   m_Layer: 0
   m_Name: Enemies
   m_TagString: Untagged
@@ -7350,6 +7351,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1574820496
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574820494}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ed68c77624e6b44c9dbb9d9d58bde73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1609422825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1652246935848856308, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
@@ -7764,10 +7777,6 @@ PrefabInstance:
     - target: {fileID: 1731055861888250631, guid: 7c30226f21c3f7e4abba4cb85a8bf97e, type: 3}
       propertyPath: m_Name
       value: Goblin
-      objectReference: {fileID: 0}
-    - target: {fileID: 1731055861888250631, guid: 7c30226f21c3f7e4abba4cb85a8bf97e, type: 3}
-      propertyPath: m_TagString
-      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 1731055861888250637, guid: 7c30226f21c3f7e4abba4cb85a8bf97e, type: 3}
       propertyPath: pointsOfPatrol.Array.data[0]
@@ -8254,22 +8263,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1574820495}
     m_Modifications:
-    - target: {fileID: 837914420, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.36
-      objectReference: {fileID: 0}
-    - target: {fileID: 837914420, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.28
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409065127271899120, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
-      propertyPath: maximumCount
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6513243828820802803, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6513243828820802804, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
       propertyPath: m_RootOrder
       value: 3

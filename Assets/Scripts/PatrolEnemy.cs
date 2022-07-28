@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class PatrolEnemy : Enemy
 {
-    [SerializeField] private float speed = 2;
-    [SerializeField] private float  startWaitTime = 1.5f;
+    [Header("PatrolEnemy")]
+    [SerializeField] private float speed = 2f;
+    [SerializeField] private float startWaitTime = 1.5f;
     [SerializeField] private Transform[] pointsOfPatrol;
 
-    private float  PatrolWaitTime;
-    private int  currentPointIndex;
+    private float PatrolWaitTime;
+    private int currentPointIndex;
     private bool isFacingRight;
 
     // Properties
@@ -62,16 +63,13 @@ public class PatrolEnemy : Enemy
 
             WalkingSoundEffect();
         }
-
     }
+
+    public Vector2 moveDirectionPush;
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (anim.parameters.Any(x => x.name == "Attacking"))
-                {
-                anim.SetTrigger("Attacking");
-                }
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
             PushBack(PushBackForce);

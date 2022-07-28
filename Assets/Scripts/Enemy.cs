@@ -45,14 +45,12 @@ public class Enemy : MonoBehaviour
     {
         anim = GetComponent<Animator>();
     }
-
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
-            PushBack(PushBackForce);
             SoundManager.Instance.PlayEnemyEffects(pushBackSound);
         }
     }
@@ -72,13 +70,11 @@ public class Enemy : MonoBehaviour
             SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
         }     
     }
-
-    protected virtual void PushBack(float pushBackForce)
+    protected void PushBack(float pushBackForce)
     {
-        Vector2 direction = (transform.position).normalized;
+        Vector2 direction = (Player.Instance.RB2D.transform.position - transform.position).normalized;
         Player.Instance.RB2D.AddForce(direction * pushBackForce);
     }
-
     protected IEnumerator Die()
     {
         GetComponent<Collider2D>().enabled = false;

@@ -147,7 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 2
   damage: 1
-  pushBackForce: 2
+  pushBackForce: 3
   minimumCount: 0
   maximumCount: 2
   coin: {fileID: 1652246935848856309, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
@@ -161,3 +161,4 @@ MonoBehaviour:
   pointsOfPatrol:
   - {fileID: 0}
   - {fileID: 0}
+  moveDirectionPush: {x: 0, y: 0}

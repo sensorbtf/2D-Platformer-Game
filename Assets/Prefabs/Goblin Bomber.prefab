@@ -179,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   damage: 1
-  pushBackForce: 2.2
+  pushBackForce: 2.5
   minimumCount: 1
   maximumCount: 3
   coin: {fileID: 1652246935848856309, guid: 336c22ee261deb8418a6364dfa3f7e89, type: 3}
@@ -187,7 +187,7 @@ MonoBehaviour:
   gettingDamageSound: {fileID: 8300000, guid: 4b7affcb44ccd824a83a4e87ea7fa778, type: 3}
   pushBackSound: {fileID: 8300000, guid: 56809ea93ba26f84ab173be74f2aa741, type: 3}
   runningSound: {fileID: 8300000, guid: 2297347d09698b848ad3da652b4e9944, type: 3}
-  dyingSound: {fileID: 8300000, guid: e39fd913fee702746b361f8037203583, type: 3}
+  dyingSound: {fileID: 8300000, guid: 337e5262d715d594b90d47aefa080997, type: 3}
   projectile: {fileID: 4388832282092376842, guid: 0e30b89adb630fd48920b0c3f5203cc2, type: 3}
   timeBetweenShots: 2.5
   shotPoint: {fileID: 837914420}

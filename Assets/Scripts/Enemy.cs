@@ -74,6 +74,7 @@ public class Enemy : MonoBehaviour
     {
         Vector2 direction = (Player.Instance.RB2D.transform.position - transform.position).normalized;
         Player.Instance.RB2D.AddForce(direction * pushBackForce);
+        SoundManager.Instance.PlayEnemyEffects(pushBackSound);
     }
     protected IEnumerator Die()
     {

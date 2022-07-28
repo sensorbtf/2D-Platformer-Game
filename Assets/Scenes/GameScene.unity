@@ -6309,10 +6309,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3245668995661878318, guid: ffc0d3ef52a2a3946a52d2e82687c33d, type: 3}
-      propertyPath: minimumCount
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3245668995661878318, guid: ffc0d3ef52a2a3946a52d2e82687c33d, type: 3}
       propertyPath: pointsOfPatrol.Array.data[0]
       value: 
       objectReference: {fileID: 762494734}
@@ -8023,10 +8019,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1574820495}
     m_Modifications:
-    - target: {fileID: 4409065127271899120, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
-      propertyPath: dyingSound
-      value: 
-      objectReference: {fileID: 8300000, guid: 337e5262d715d594b90d47aefa080997, type: 3}
     - target: {fileID: 6513243828820802804, guid: e3362f5fb758b534d8f546e1b65a957c, type: 3}
       propertyPath: m_RootOrder
       value: 3

@@ -73,7 +73,7 @@ public class PatrolEnemy : Enemy
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
             PushBack(PushBackForce);
-            SoundManager.Instance.PlayEnemyEffects(pushBackSound);
+
         }
     }
     private void FlipEnemy()

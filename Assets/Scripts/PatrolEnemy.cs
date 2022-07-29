@@ -73,7 +73,6 @@ public class PatrolEnemy : Enemy
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
             PushBack(PushBackForce);
-
         }
     }
     private void FlipEnemy()
@@ -83,7 +82,7 @@ public class PatrolEnemy : Enemy
     }
     private void WalkingSoundEffect()
     {
-        if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
+        if (transform.position != pointsOfPatrol[currentPointIndex].position && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
         {
             SoundManager.Instance.PlayEnemyEffects(runningSound);
             SoundManager.Instance.EnemyEffectsSource.Play();

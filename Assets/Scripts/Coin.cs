@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class Coin : MonoBehaviour
 {
-
-    [SerializeField]
-    private AudioClip collectingCoinAudio;
-    void OnTriggerEnter2D(Collider2D collision)
+    [SerializeField] private AudioClip collectingCoinAudio;
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {

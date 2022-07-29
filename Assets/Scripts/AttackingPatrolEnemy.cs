@@ -9,27 +9,24 @@ public class AttackingPatrolEnemy : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float attackColdown = 1.5f;
 
-    [SerializeField] private LayerMask whatIsPlayer;
-
     private float nextAttack = 0.2f;
-
-    [SerializeField] Transform player;
     private Animator anim;
+
+    [SerializeField] private LayerMask whatIsPlayer;
+    [SerializeField] Transform player;
     [SerializeField] Transform attackValidator;
 
-    void Start()
+    private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         anim = GetComponent<Animator>();
     }
     private void Update()
     {
-        if (player != null && attackValidator != null && attackColdown != 0)
-        {
+        if (player != null && attackValidator != null && attackColdown != 0 && !Player.Instance.IsImmune)
             AttackPlayer();
-        }
     }
-    void AttackPlayer()
+    private void AttackPlayer()
     {
         if (Vector2.Distance(player.position, attackValidator.position) <= attackRange && Time.time > nextAttack)
         {

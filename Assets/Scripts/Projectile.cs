@@ -36,7 +36,7 @@ public class Projectile : MonoBehaviour
         }
 
     }
-    void DirectionOfAttack()
+    private void DirectionOfAttack()
     {
         transform.Translate(speed * Time.deltaTime * Vector2.right);
     }

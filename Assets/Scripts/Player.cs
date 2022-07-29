@@ -2,10 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IICharacters, iPlayer
 {
     // Singletone instance
-    public static Player Instance { get; private set; }
+    public static Player Instance { get; private set; } 
 
     [Header("Player parameters")]
     [SerializeField] private int  health = 3;
@@ -30,6 +30,11 @@ public class Player : MonoBehaviour
     private bool doJumpDown = false;
     private bool doJumpFromWall = false;
 
+    // Layers
+    private int playerLayerIndex;
+    private int enemyLayerIndex;
+    private int projectileLayerIndex;
+
     [Header("Checkers")]
     [SerializeField] private Transform platformTouchingValidator;
     [SerializeField] private Transform wallTouchingValidator;
@@ -43,8 +48,8 @@ public class Player : MonoBehaviour
 
     // Hero Dashing
 
-    private bool canDash = true;
-    private bool isDashing = false;
+    private bool  canDash = true;
+    private bool  isDashing = false;
     private float dashingPower = 100;
     private float dashingTime = 0.2f;
     private float dashingCooldown = 1f;
@@ -57,6 +62,7 @@ public class Player : MonoBehaviour
     private bool  isSlidingWall;
     private float nextAttackTime;
     private bool  isJumpingFromWall;
+    private bool  isImmune = false;
 
     // Sound
     [Header("Sounds")]
@@ -69,6 +75,23 @@ public class Player : MonoBehaviour
 
     // Properties for most used fields
     public Rigidbody2D RB2D { get => rB2D; set => rB2D = value; }
+    public int Health
+    {
+        get => health;
+        set
+        {
+            health = value;
+            if (value <= 0)
+            {
+                StartCoroutine(Die());
+            }
+        }
+    }
+    public int Damage
+    {
+        get => damage;
+        set { damage = value < 0 ? damage = 0 : damage = value; }
+    }
     public float Speed
     {
         get => speed;
@@ -94,43 +117,32 @@ public class Player : MonoBehaviour
         get => attackRange;
         set { attackRange = value < 0 ? attackRange = 0 : attackRange = value; }
     }
-    public int Damage
+    public bool IsImmune
     {
-        get => damage;
-        set { damage = value < 0 ?  damage = 0 : damage = value; }
-    }
-    public int Health
-    {
-        get => health;
-        set
-        {
-            health = value;
-            if (value <= 0)
-            {
-                StartCoroutine(Die());
-            }
-        }
+        get => isImmune;
+        set { isImmune = value; }
     }
     private void Start()
     {
         rB2D = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         playerCollider = GetComponent<Collider2D>();
-    }
+
+        playerLayerIndex = LayerMask.NameToLayer("Player");
+        enemyLayerIndex = LayerMask.NameToLayer("Enemy");
+        projectileLayerIndex = LayerMask.NameToLayer("Projectiles");
+}
     private void Awake()
     {
         if (Instance != null && Instance != this)
-        {
             Destroy(this);
-        }
         else
-        {
             Instance = this;
-        }
     }
     private void Update()
     {
-        if (isDashing == true)
+        Debug.Log("TT" + isImmune);
+        if (isDashing )
             return;
         if (Health <= 0)
             return;
@@ -146,51 +158,37 @@ public class Player : MonoBehaviour
     {
         RB2D.velocity = new Vector2(input * speed, RB2D.velocity.y);
 
-        if (doDash == true)
-        {
+        if (doDash)
             Dash();
-        }
-        if (doJump == true)
-        {
+
+        if (doJump)
             Jump();
-        }
-        if (doJumpDown == true)
-        {
+
+        if (doJumpDown)
             StartCoroutine(JumpOff());
-        }
+
         if (isSlidingWall)
-        {
             SlideOnWall();
-        }
-        if (doJumpFromWall == true)
-        {
+
+        if (doJumpFromWall)
             JumpFromWall();
-        }
     }
     private void HeroState()
     {
-        if (input > 0 && isFacingRight == false)
-        {
+        if (input > 0 && !isFacingRight)
             FlipHeroSprite();
-        }
-        else if (input < 0 && isFacingRight == true)
-        {
+        else if (input < 0 && isFacingRight)
             FlipHeroSprite();
-        }
 
-        if (isTouchingWall == true && isGrounded == false && input != 0)
-        {
+        if (isTouchingWall  && !isGrounded  && input != 0)
             isSlidingWall = true;
-        }
         else
-        {
             isSlidingWall = false;
-        }
     }
 
     private void HeroStateAnimations()
     {
-        if (input != 0 && isGrounded == true)
+        if (input != 0 && isGrounded )
         {
             anim.SetBool("isRunning", true);
             if (input != 0 && !SoundManager.Instance.PlayerWalkingSource.isPlaying)
@@ -198,14 +196,14 @@ public class Player : MonoBehaviour
                 SoundManager.Instance.PlayWalkingEffect(runningSound);
                 SoundManager.Instance.PlayerWalkingSource.Play();
             }
-            else if (input == 0 || isGrounded == false)
+            else if (input == 0 || !isGrounded)
                 SoundManager.Instance.PlayerWalkingSource.Stop();
         }
         else
-        {
             anim.SetBool("isRunning", false);
-        }
-        if (isGrounded == true)
+
+
+        if (isGrounded)
         {
             anim.SetBool("isJumping", false);
             anim.SetBool("isFalling", false);
@@ -219,47 +217,39 @@ public class Player : MonoBehaviour
                 anim.SetBool("isFalling", true);
             }
             else
-            {
                 anim.SetBool("isFalling", false);
-            }
         }
     }
-    void PlayerPositionChecker()
+    private void PlayerPositionChecker()
     {
         isGrounded = Physics2D.OverlapCircle(platformTouchingValidator.position, radiousChecker, whatIsPlatform);
         isTouchingWall = Physics2D.OverlapCircle(wallTouchingValidator.position, radiousChecker, whatAreWallsAndCeiling);
     }
-    void PlayerInput()
+    private void PlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
-        {
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
             doJump = true;
-        }
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded == true)
-        {
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded )
             doJumpDown = true;
-        }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isSlidingWall == true)
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isSlidingWall )
         {
             isJumpingFromWall = true;
             Invoke(nameof(SetWallJumpingToFalse), wallJumpTime);
 
             SoundManager.Instance.PlayPlayerEffects(jumpSound);
         }
-        if (isJumpingFromWall == true)
-        {
+
+        if (isJumpingFromWall )
             doJumpFromWall = true;
-        }
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash == true && isGrounded == false)
-        {
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash  && !isGrounded)
             doDash = true;
-        }
 
         if (Time.time > nextAttackTime)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && !isImmune)
             {
                 StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
                 SoundManager.Instance.PlayPlayerEffects(attackSound);
@@ -268,71 +258,74 @@ public class Player : MonoBehaviour
             }
         }
     }
-    void Jump()
+    private void Jump()
     {
         RB2D.velocity = Vector2.up * JumpForce;
         SoundManager.Instance.PlayPlayerEffects(jumpSound);
         doJump = false;
     }
-    void Attack()
+    private void Attack()
     {
         Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, AttackRange, whatAreEnemies);
+
         foreach (Collider2D enemies in enemiesToDamage)
-        {
             enemies.GetComponent<Enemy>().TakeDamage(damage);
-        }
     }
-    void SlideOnWall()
+    private void SlideOnWall()
     {
         RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
     }
-    void JumpFromWall()
+    private void JumpFromWall()
     {
         RB2D.velocity = new Vector2(xWallForce * -input, yWallForce);
         doJumpFromWall = false;
     }
-    void Dash()
+    private void Dash()
     {
-        if (wallTouchingValidator.position.x > platformTouchingValidator.position.x == true)
-        {
+        if (wallTouchingValidator.position.x > platformTouchingValidator.position.x )
             StartCoroutine(Dash(1));
-        }
         else
-        {
             StartCoroutine(Dash(-1));
-        }
     }
-    void FlipHeroSprite()
+    private void FlipHeroSprite()
     {
         transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
         isFacingRight =! isFacingRight;
     }
-    void SetWallJumpingToFalse()
+    private void SetWallJumpingToFalse()
     {
          isJumpingFromWall = false;
     }
     public void TakeDamage(int damage)
     {
+        if (isImmune)
+            return;
+
+        Instantiate(Blood, transform.position, Quaternion.identity);
+        SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
+
+        if (Health > 0)
+            StartCoroutine(TemporaryGodmode());
+
         anim.SetTrigger("GettingDamage");
         Health -= damage;
-        StartCoroutine(TemporaryGodmode());
-        Instantiate(Blood, transform.position, Quaternion.identity);
 
-        SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
     }
-    IEnumerator Die()
+    private IEnumerator Die()
     {
         SoundManager.Instance.MuteDespiteMusic();
         SoundManager.Instance.PlayMusic(deathSound);
 
+        isImmune = false;
         rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Destroy(gameObject);
+        StopIgnoringCollisions();
 
         Time.timeScale = 0;
     }
-    IEnumerator JumpOff()
+    private IEnumerator JumpOff()
     {
         SoundManager.Instance.PlayPlayerEffects(jumpedDownSound);
 
@@ -341,24 +334,20 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreCollision(playerCollider, mapCollider, false);
         doJumpDown = false;
     }
-    IEnumerator TemporaryGodmode()
+    private IEnumerator TemporaryGodmode()
     {
-        int playerLayer = LayerMask.NameToLayer("Player");
-        int enemyLayer = LayerMask.NameToLayer("Enemy");
-        int projectileLayer = LayerMask.NameToLayer("Projectiles");
-
         SoundManager.Instance.MusicSource.pitch = 1.5f;
 
+        isImmune = true;
         anim.SetTrigger("GodModeOn");
-        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
-        Physics2D.IgnoreLayerCollision(playerLayer, projectileLayer, true);
+        StartIgnoringCollisions();
         yield return new WaitForSeconds(1.5f);
-        Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
-        Physics2D.IgnoreLayerCollision(playerLayer, projectileLayer, false);
+        StopIgnoringCollisions();
+        isImmune = false;
 
         SoundManager.Instance.MusicSource.pitch = 1f;
     }
-    IEnumerator Dash(float Direction)
+    private IEnumerator Dash(float Direction)
     {
         anim.SetTrigger("Dashing");
         isDashing = true;
@@ -375,6 +364,16 @@ public class Player : MonoBehaviour
 
         yield return new WaitForSeconds(dashingCooldown);
         canDash = true;
+    }
+    private void StartIgnoringCollisions()
+    {
+        Physics2D.IgnoreLayerCollision(playerLayerIndex, enemyLayerIndex, true);
+        Physics2D.IgnoreLayerCollision(playerLayerIndex, projectileLayerIndex, true);
+    }
+    private void StopIgnoringCollisions()
+    {
+        Physics2D.IgnoreLayerCollision(playerLayerIndex, enemyLayerIndex, false);
+        Physics2D.IgnoreLayerCollision(playerLayerIndex, projectileLayerIndex, false);
     }
     // Showing attack range of Player
     private void OnDrawGizmosSelected()

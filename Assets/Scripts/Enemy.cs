@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour, IICharacters, IIEnemy
+public class Enemy : MonoBehaviour, ICharacters, IEnemy
 {
     [Header("Enemy parameters")]
     [SerializeField] private int health = 2;

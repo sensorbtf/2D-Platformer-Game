@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IIEnemy
+public interface IEnemy
 {
     public float PushBackForce { get; set; }
 }

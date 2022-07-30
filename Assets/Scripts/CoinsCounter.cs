@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinsCounter : MonoBehaviour, IICollectibles
+public class CoinsCounter : MonoBehaviour, ICollectibles
 {
     public static CoinsCounter Instance { get; private set; }
 

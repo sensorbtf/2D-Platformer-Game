@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public class Player : MonoBehaviour, IICharacters, iPlayer
+public class Player : MonoBehaviour, ICharacters, IPlayer
 {
     // Singletone instance
     public static Player Instance { get; private set; } 
@@ -227,13 +227,13 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
     }
     private void PlayerInput()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded )
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded)
             doJump = true;
 
-        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded )
+        if (Input.GetKeyDown(KeyCode.DownArrow) && isGrounded)
             doJumpDown = true;
 
-        if (Input.GetKeyDown(KeyCode.UpArrow) && isSlidingWall )
+        if (Input.GetKeyDown(KeyCode.UpArrow) && isSlidingWall)
         {
             isJumpingFromWall = true;
             Invoke(nameof(SetWallJumpingToFalse), wallJumpTime);
@@ -244,7 +244,7 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
         if (isJumpingFromWall )
             doJumpFromWall = true;
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash  && !isGrounded)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isGrounded)
             doDash = true;
 
         if (Time.time > nextAttackTime)
@@ -260,8 +260,9 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
     }
     private void Jump()
     {
-        RB2D.velocity = Vector2.up * JumpForce;
         SoundManager.Instance.PlayPlayerEffects(jumpSound);
+
+        RB2D.velocity = Vector2.up * JumpForce;
         doJump = false;
     }
     private void Attack()
@@ -282,7 +283,7 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
     }
     private void Dash()
     {
-        if (wallTouchingValidator.position.x > platformTouchingValidator.position.x )
+        if (wallTouchingValidator.position.x > platformTouchingValidator.position.x)
             StartCoroutine(Dash(1));
         else
             StartCoroutine(Dash(-1));
@@ -301,15 +302,15 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
         if (isImmune)
             return;
 
-        Instantiate(Blood, transform.position, Quaternion.identity);
         SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
+
+        Instantiate(Blood, transform.position, Quaternion.identity);
 
         if (Health > 0)
             StartCoroutine(TemporaryGodmode());
 
         anim.SetTrigger("GettingDamage");
         Health -= damage;
-
     }
     private IEnumerator Die()
     {
@@ -356,6 +357,7 @@ public class Player : MonoBehaviour, IICharacters, iPlayer
 
         RB2D.velocity = new Vector2(RB2D.velocity.x, 0f);
         RB2D.AddForce(new Vector2(dashingPower * Direction, 0f), ForceMode2D.Impulse);
+
         float originalGravity = RB2D.gravityScale;
         RB2D.gravityScale = 0;
         yield return new WaitForSeconds(dashingTime);

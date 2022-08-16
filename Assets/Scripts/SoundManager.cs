@@ -2,62 +2,55 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager 
+public class SoundManager : MonoBehaviour
 {
-	readonly private AudioSource _musicSource;
-	readonly private AudioSource _playerEffectsSource;
-	readonly private AudioSource _playerWalkingSource;
-	readonly private AudioSource _enemyEffectsSource;
-	readonly private AudioSource _enviromentEffectSource;
+	public AudioSource MusicSource;
+	public AudioSource PlayerEffectsSource;
+	public AudioSource PlayerWalkingSource;
+	public AudioSource EnemyEffectsSource;
+	public AudioSource EnviromentEffectSource;
 
-	public AudioSource musicSource => _musicSource;
-	public AudioSource playerSource => _playerEffectsSource;
-	public AudioSource playerWalkingSource => _playerWalkingSource;
-	public AudioSource enemyEffectsSource => _enemyEffectsSource;
-	public AudioSource enviromentEffectSource => _enviromentEffectSource;
+	public static SoundManager Instance { get; private set; }
 
-    public SoundManager(AudioSource music, AudioSource playereffects, AudioSource playerwalking, 
-			AudioSource enemyeffects, AudioSource enviromenteffects)
+    private void Awake()
 	{
-		_musicSource = music;
-		_playerEffectsSource = playereffects;
-		_playerWalkingSource = playerwalking;
-		_enemyEffectsSource = enemyeffects;
-		_enviromentEffectSource = enviromenteffects;
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
 	}
-
 	public void PlayMusic(AudioClip clip)
 	{
-		_musicSource.clip = clip;
-		_musicSource.Play();
+		MusicSource.clip = clip;
+		MusicSource.Play();
 	}
 	public void PlayWalkingEffect(AudioClip clip)
 	{
-		_playerWalkingSource.clip = clip;
-		_playerWalkingSource.Play();
+		PlayerWalkingSource.clip = clip;
+		PlayerWalkingSource.Play();
 	}
 	public void PlayPlayerEffects(AudioClip clip)
 	{
-		_playerEffectsSource.clip = clip;
-		_playerEffectsSource.Play();
+		PlayerEffectsSource.clip = clip;
+		PlayerEffectsSource.Play();
 	}
 	public void PlayEnemyEffects(AudioClip clip)
 	{
-		_enemyEffectsSource.clip = clip;
-		_enemyEffectsSource.Play();
+		EnemyEffectsSource.clip = clip;
+		EnemyEffectsSource.Play();
 	}
 	public void PlayEnviromentEffects(AudioClip clip)
 	{
-		_enviromentEffectSource.clip = clip;
-		_enviromentEffectSource.Play();
+		EnviromentEffectSource.clip = clip;
+		EnviromentEffectSource.Play();
 	}
 	public void MuteDespiteMusic()
 	{
-		_musicSource.loop = false;
-		_playerEffectsSource.mute = true;
-		_enemyEffectsSource.mute = true;
-		_enviromentEffectSource.mute = true;
-		_playerWalkingSource.mute = true;
+		MusicSource.loop = false;
+		PlayerEffectsSource.mute = true;
+		EnemyEffectsSource.mute = true;
+		EnviromentEffectSource.mute = true;
+		PlayerWalkingSource.mute = true;
 	}
 
 }

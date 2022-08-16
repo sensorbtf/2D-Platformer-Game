@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Zenject;
 
 public class PatrolEnemy : Enemy
 {
@@ -13,6 +14,9 @@ public class PatrolEnemy : Enemy
     private float PatrolWaitTime;
     private int currentPointIndex;
     private bool isFacingRight;
+
+    private SoundManager soundManager;
+
 
     // Properties
 
@@ -82,12 +86,19 @@ public class PatrolEnemy : Enemy
     }
     private void WalkingSoundEffect()
     {
-        if (transform.position != pointsOfPatrol[currentPointIndex].position && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
+        if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !soundManager.enemyEffectsSource.isPlaying)
+        if (transform.position != pointsOfPatrol[currentPointIndex].position && !soundManager.enemyEffectsSource.isPlaying)
         {
-            SoundManager.Instance.PlayEnemyEffects(runningSound);
-            SoundManager.Instance.EnemyEffectsSource.Play();
+            soundManager.PlayEnemyEffects(runningSound);
+            soundManager.enemyEffectsSource.Play();
         }
         else if (transform.position == pointsOfPatrol[currentPointIndex].position)
-            SoundManager.Instance.EnemyEffectsSource.Stop();
+            soundManager.enemyEffectsSource.Stop();
+    }
+
+    [Inject]
+    public void construct(SoundManager sM)
+    {
+        soundManager = sM;
     }
 }

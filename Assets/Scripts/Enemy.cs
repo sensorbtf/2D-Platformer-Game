@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Enemy : MonoBehaviour, ICharacters, IEnemy
 {
@@ -16,6 +17,8 @@ public class Enemy : MonoBehaviour, ICharacters, IEnemy
 
     [Header("Effects")]
     [SerializeField] private GameObject Blood;
+
+    private SoundManager soundManager;
 
     //properties
     public int Health
@@ -51,7 +54,7 @@ public class Enemy : MonoBehaviour, ICharacters, IEnemy
         {
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);
-            SoundManager.Instance.PlayEnemyEffects(pushBackSound);
+            soundManager.PlayEnemyEffects(pushBackSound);
         }
     }
 
@@ -62,23 +65,23 @@ public class Enemy : MonoBehaviour, ICharacters, IEnemy
         if (Health <= 0)
         {
             StartCoroutine(Die());
-            SoundManager.Instance.PlayEnemyEffects(dyingSound);
+            soundManager.PlayEnemyEffects(dyingSound);
         }
         else
         {
             Instantiate(Blood, transform.position, Quaternion.identity);
-            SoundManager.Instance.PlayEnemyEffects(gettingDamageSound);
+            soundManager.PlayEnemyEffects(gettingDamageSound);
         }     
     }
     protected void PushBack(float pushBackForce)
     {
         Vector2 direction = (Player.Instance.RB2D.transform.position - transform.position).normalized;
         Player.Instance.RB2D.AddForce(direction * pushBackForce);
-        SoundManager.Instance.PlayEnemyEffects(pushBackSound);
+        soundManager.PlayEnemyEffects(pushBackSound);
     }
     protected IEnumerator Die()
     {
-        GetComponent<Collider2D>().enabled = false;
+        GetComponent<Collider2D>().enabled = false; 
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
         Spawn();
@@ -94,5 +97,10 @@ public class Enemy : MonoBehaviour, ICharacters, IEnemy
             Instantiate(coin, new Vector3(transform.position.x + xPositionDifference, transform.position.y, 0), Quaternion.identity);
             xPositionDifference += 0.75f;
         }
+    }
+    [Inject]
+    public void construct(SoundManager sM)
+    {
+        soundManager = sM;
     }
 }

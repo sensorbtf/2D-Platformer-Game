@@ -10,6 +10,7 @@ public class PlayerHearts : MonoBehaviour
     [SerializeField]  private Sprite  fullHeart;
     [SerializeField] private Sprite  brokenHeart;
 
+
     public int NumberOfHearts
     {
         get { return  numberOfHearts; }

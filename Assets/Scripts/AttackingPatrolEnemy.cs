@@ -10,6 +10,7 @@ public class AttackingPatrolEnemy : MonoBehaviour
     [SerializeField] private float attackColdown = 1.5f;
 
     private float nextAttack = 0.2f;
+
     private Animator anim;
 
     [SerializeField] private LayerMask whatIsPlayer;

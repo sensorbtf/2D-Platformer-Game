@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+
 public class Player : MonoBehaviour
 {
     // Singletone instance
@@ -23,6 +25,7 @@ public class Player : MonoBehaviour
     private Collider2D playerCollider;
     private Animator anim;
     private float input;
+    private SoundManager soundManager;
 
     // Hero movement checkers
     private bool doDash = false;
@@ -137,9 +140,12 @@ public class Player : MonoBehaviour
 
         input = Input.GetAxisRaw("Horizontal");
 
-        PlayerPositionChecker();
         PlayerInput();
+
+        PlayerPositionChecker();
+                                       
         HeroState();
+
         HeroStateAnimations();
     }
     private void FixedUpdate()
@@ -193,13 +199,13 @@ public class Player : MonoBehaviour
         if (input != 0 && isGrounded == true)
         {
             anim.SetBool("isRunning", true);
-            if (input != 0 && !SoundManager.Instance.PlayerWalkingSource.isPlaying)
+            if (input != 0 && !soundManager.playerWalkingSource.isPlaying)
             {
-                SoundManager.Instance.PlayWalkingEffect(runningSound);
-                SoundManager.Instance.PlayerWalkingSource.Play();
+                soundManager.PlayWalkingEffect(runningSound);
+                soundManager.playerWalkingSource.Play();
             }
             else if (input == 0 || isGrounded == false)
-                SoundManager.Instance.PlayerWalkingSource.Stop();
+                soundManager.playerWalkingSource.Stop();
         }
         else
         {
@@ -246,7 +252,7 @@ public class Player : MonoBehaviour
             isJumpingFromWall = true;
             Invoke(nameof(SetWallJumpingToFalse), wallJumpTime);
 
-            SoundManager.Instance.PlayPlayerEffects(jumpSound);
+            soundManager.PlayPlayerEffects(jumpSound);
         }
         if (isJumpingFromWall == true)
         {
@@ -262,7 +268,7 @@ public class Player : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
-                SoundManager.Instance.PlayPlayerEffects(attackSound);
+                soundManager.PlayPlayerEffects(attackSound);
                 anim.SetTrigger("Attacking");
                 nextAttackTime = Time.time + TimeBetweenAtacks;
             }
@@ -271,7 +277,7 @@ public class Player : MonoBehaviour
     void Jump()
     {
         RB2D.velocity = Vector2.up * JumpForce;
-        SoundManager.Instance.PlayPlayerEffects(jumpSound);
+        soundManager.PlayPlayerEffects(jumpSound);
         doJump = false;
     }
     void Attack()
@@ -318,12 +324,12 @@ public class Player : MonoBehaviour
         StartCoroutine(TemporaryGodmode());
         Instantiate(Blood, transform.position, Quaternion.identity);
 
-        SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
+        soundManager.PlayPlayerEffects(getDamagedSound);
     }
     IEnumerator Die()
     {
-        SoundManager.Instance.MuteDespiteMusic();
-        SoundManager.Instance.PlayMusic(deathSound);
+        soundManager.MuteDespiteMusic();
+        soundManager.PlayMusic(deathSound);
 
         rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
         anim.SetTrigger("Dying");
@@ -334,7 +340,7 @@ public class Player : MonoBehaviour
     }
     IEnumerator JumpOff()
     {
-        SoundManager.Instance.PlayPlayerEffects(jumpedDownSound);
+        soundManager.PlayPlayerEffects(jumpedDownSound);
 
         Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
         yield return new WaitForSeconds(0.2f);
@@ -347,7 +353,7 @@ public class Player : MonoBehaviour
         int enemyLayer = LayerMask.NameToLayer("Enemy");
         int projectileLayer = LayerMask.NameToLayer("Projectiles");
 
-        SoundManager.Instance.MusicSource.pitch = 1.5f;
+        soundManager.musicSource.pitch = 1.5f;
 
         anim.SetTrigger("GodModeOn");
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, true);
@@ -356,7 +362,7 @@ public class Player : MonoBehaviour
         Physics2D.IgnoreLayerCollision(playerLayer, enemyLayer, false);
         Physics2D.IgnoreLayerCollision(playerLayer, projectileLayer, false);
 
-        SoundManager.Instance.MusicSource.pitch = 1f;
+        soundManager.musicSource.pitch = 1f;
     }
     IEnumerator Dash(float Direction)
     {
@@ -381,5 +387,11 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackValidator.position, AttackRange);
+    }
+
+    [Inject]
+    public void construct(SoundManager sM)
+    {
+        soundManager = sM;
     }
 }

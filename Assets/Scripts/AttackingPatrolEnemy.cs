@@ -9,14 +9,13 @@ public class AttackingPatrolEnemy : MonoBehaviour
     [SerializeField] private float attackRange = 1f;
     [SerializeField] private float attackColdown = 1.5f;
 
-    [SerializeField] private LayerMask whatIsPlayer;
-
     private float nextAttack = 0.2f;
 
+    [SerializeField] private LayerMask whatIsPlayer;
     [SerializeField] Transform player;
-    private Animator anim;
     [SerializeField] Transform attackValidator;
 
+    private Animator anim;
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;

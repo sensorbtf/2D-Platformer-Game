@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed;
     [SerializeField] private int damage;
     [SerializeField] private float lifeTime;
+
+    private SoundManager soundManager;
+
 
     private void Start()
     {
@@ -32,12 +36,17 @@ public class Projectile : MonoBehaviour
         else
         {
             Destroy(gameObject);
-            SoundManager.Instance.PlayEnviromentEffects(bombExplode);
+           // soundManager.PlayEnviromentEffects(bombExplode);
         }
 
     }
     private void DirectionOfAttack()
     {
         transform.Translate(speed * Time.deltaTime * Vector2.right);
+    }
+    [Inject]
+    public void construct(SoundManager sM)
+    {
+        soundManager = sM;
     }
 }

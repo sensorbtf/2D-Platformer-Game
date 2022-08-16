@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
+
 public class Player : MonoBehaviour, ICharacters, IPlayer
 {
     // Singletone instance
@@ -23,6 +25,8 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     private Collider2D playerCollider;
     private Animator anim;
     private float input;
+    private SoundManager soundManager;
+
 
     // Hero movement checkers
     private bool doDash = false;
@@ -141,7 +145,6 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private void Update()
     {
-        Debug.Log("TT" + isImmune);
         if (isDashing )
             return;
         if (Health <= 0)
@@ -191,13 +194,13 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
         if (input != 0 && isGrounded )
         {
             anim.SetBool("isRunning", true);
-            if (input != 0 && !SoundManager.Instance.PlayerWalkingSource.isPlaying)
+            if (input != 0 && !soundManager.PlayerWalkingSource.isPlaying)
             {
-                SoundManager.Instance.PlayWalkingEffect(runningSound);
-                SoundManager.Instance.PlayerWalkingSource.Play();
+                soundManager.PlayWalkingEffect(runningSound);
+                soundManager.PlayerWalkingSource.Play();
             }
             else if (input == 0 || !isGrounded)
-                SoundManager.Instance.PlayerWalkingSource.Stop();
+                soundManager.PlayerWalkingSource.Stop();
         }
         else
             anim.SetBool("isRunning", false);
@@ -238,7 +241,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
             isJumpingFromWall = true;
             Invoke(nameof(SetWallJumpingToFalse), wallJumpTime);
 
-            SoundManager.Instance.PlayPlayerEffects(jumpSound);
+            soundManager.PlayPlayerEffects(jumpSound);
         }
 
         if (isJumpingFromWall )
@@ -252,7 +255,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
             if (Input.GetKeyDown(KeyCode.Space) && !isImmune)
             {
                 StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
-                SoundManager.Instance.PlayPlayerEffects(attackSound);
+                soundManager.PlayPlayerEffects(attackSound);
                 anim.SetTrigger("Attacking");
                 nextAttackTime = Time.time + TimeBetweenAtacks;
             }
@@ -260,7 +263,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private void Jump()
     {
-        SoundManager.Instance.PlayPlayerEffects(jumpSound);
+        soundManager.PlayPlayerEffects(jumpSound);
 
         RB2D.velocity = Vector2.up * JumpForce;
         doJump = false;
@@ -302,7 +305,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
         if (isImmune)
             return;
 
-        SoundManager.Instance.PlayPlayerEffects(getDamagedSound);
+        soundManager.PlayPlayerEffects(getDamagedSound);
 
         Instantiate(Blood, transform.position, Quaternion.identity);
 
@@ -314,8 +317,8 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private IEnumerator Die()
     {
-        SoundManager.Instance.MuteDespiteMusic();
-        SoundManager.Instance.PlayMusic(deathSound);
+        soundManager.MuteDespiteMusic();
+        soundManager.PlayMusic(deathSound);
 
         isImmune = false;
         rB2D.constraints = RigidbodyConstraints2D.FreezePosition;
@@ -328,7 +331,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private IEnumerator JumpOff()
     {
-        SoundManager.Instance.PlayPlayerEffects(jumpedDownSound);
+        soundManager.PlayPlayerEffects(jumpedDownSound);
 
         Physics2D.IgnoreCollision(playerCollider, mapCollider, true);
         yield return new WaitForSeconds(0.2f);
@@ -337,7 +340,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private IEnumerator TemporaryGodmode()
     {
-        SoundManager.Instance.MusicSource.pitch = 1.5f;
+        soundManager.MusicSource.pitch = 1.5f;
 
         isImmune = true;
         anim.SetTrigger("GodModeOn");
@@ -346,7 +349,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
         StopIgnoringCollisions();
         isImmune = false;
 
-        SoundManager.Instance.MusicSource.pitch = 1f;
+        soundManager.MusicSource.pitch = 1f;
     }
     private IEnumerator Dash(float Direction)
     {
@@ -382,5 +385,10 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(attackValidator.position, AttackRange);
+    }
+    [Inject]
+    public void construct(SoundManager sM)
+    {
+        soundManager = sM;
     }
 }

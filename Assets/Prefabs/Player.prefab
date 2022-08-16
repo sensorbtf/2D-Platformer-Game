@@ -206,11 +206,12 @@ MonoBehaviour:
   damage: 1
   speed: 5
   jumpForce: 30
-  rB2D: {fileID: 0}
   wallSlidingSpeed: 3
-  timeBetweenAttacks: 0.3
+  timeBetweenAttacks: 0.4
   attackRange: 0.5
-  Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
+  xWallForce: 5
+  yWallForce: 20
+  wallJumpTime: 0.1
   platformTouchingValidator: {fileID: 7528215259328949609}
   wallTouchingValidator: {fileID: 7528215259095806921}
   attackValidator: {fileID: 7528215258818457274}
@@ -224,11 +225,8 @@ MonoBehaviour:
   whatAreEnemies:
     serializedVersion: 2
     m_Bits: 2048
-  playerCollider: {fileID: 7528215259146596974}
+  Blood: {fileID: 4888858878483264699, guid: 3033e76d9247a8f479e5cb21e47db206, type: 3}
   mapCollider: {fileID: 0}
-  xWallForce: 5
-  yWallForce: 20
-  wallJumpTime: 0.1
   jumpSound: {fileID: 8300000, guid: 4e100854c4e3534409010e6c956a4260, type: 3}
   runningSound: {fileID: 8300000, guid: 2297347d09698b848ad3da652b4e9944, type: 3}
   getDamagedSound: {fileID: 8300000, guid: f290e488c013f4e4285663577b1de04b, type: 3}

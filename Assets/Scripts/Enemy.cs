@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-public class Enemy : MonoBehaviour
+public class Enemy : MonoBehaviour, ICharacters, IEnemy
 {
     [Header("Enemy parameters")]
     [SerializeField] private int health = 2;
@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !Player.Instance.IsImmune)
         {
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(Damage);

@@ -19,11 +19,18 @@ public class SoundManager
     public SoundManager(AudioSource music, AudioSource playereffects, AudioSource playerwalking, 
 			AudioSource enemyeffects, AudioSource enviromenteffects)
 	{
+<<<<<<< HEAD
 		_musicSource = music;
 		_playerEffectsSource = playereffects;
 		_playerWalkingSource = playerwalking;
 		_enemyEffectsSource = enemyeffects;
 		_enviromentEffectSource = enviromenteffects;
+=======
+		if (Instance == null)
+			Instance = this;
+		else if (Instance != this)
+			Destroy(gameObject);
+>>>>>>> 13d2e926e68419e1974194969abaa700615ff344
 	}
 
 	public void PlayMusic(AudioClip clip)

@@ -5232,11 +5232,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8996025117269080425, guid: 9f0db351ffababc449c80d50f55ddc1e, type: 3}
   m_PrefabInstance: {fileID: 8996025117649259260}
   m_PrefabAsset: {fileID: 0}
---- !u!50 &384090205 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 7528215259146596975, guid: 93e081f832968f141bd4630ad3206215, type: 3}
-  m_PrefabInstance: {fileID: 7528215258053787557}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &425378074
 GameObject:
   m_ObjectHideFlags: 0
@@ -7945,17 +7940,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
-      propertyPath: rB2D
-      value: 
-      objectReference: {fileID: 384090205}
-    - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
       propertyPath: mapCollider
       value: 
       objectReference: {fileID: 479001229}
-    - target: {fileID: 7528215259146596969, guid: 93e081f832968f141bd4630ad3206215, type: 3}
-      propertyPath: timeBetweenAttacks
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7528215259146596972, guid: 93e081f832968f141bd4630ad3206215, type: 3}
       propertyPath: m_RootOrder
       value: 3

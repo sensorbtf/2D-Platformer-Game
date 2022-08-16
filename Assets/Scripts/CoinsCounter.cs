@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CoinsCounter : MonoBehaviour
+public class CoinsCounter : MonoBehaviour, ICollectibles
 {
     public static CoinsCounter Instance { get; private set; }
-    [SerializeField]
-    private TMPro.TextMeshProUGUI coinsCounter;
 
-    private int _numberOfCoins = 0;
+    [SerializeField] private TMPro.TextMeshProUGUI coinsCounter;
+
+    private int numberOfCoins = 0;
 
     public int NumberOfCoins
     {
-        get { return _numberOfCoins; }
-        set { _numberOfCoins = value < 0 ? _numberOfCoins = 0 : _numberOfCoins = value; }
+        get { return numberOfCoins; }
+        set { numberOfCoins = value < 0 ? numberOfCoins = 0 : numberOfCoins = value; }
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
         coinsCounter.text = NumberOfCoins.ToString();
     }

@@ -86,7 +86,11 @@ public class PatrolEnemy : Enemy
     }
     private void WalkingSoundEffect()
     {
+<<<<<<< HEAD
         if (transform.position == pointsOfPatrol[currentPointIndex].position == false && !soundManager.enemyEffectsSource.isPlaying)
+=======
+        if (transform.position != pointsOfPatrol[currentPointIndex].position && !SoundManager.Instance.EnemyEffectsSource.isPlaying)
+>>>>>>> 13d2e926e68419e1974194969abaa700615ff344
         {
             soundManager.PlayEnemyEffects(runningSound);
             soundManager.enemyEffectsSource.Play();

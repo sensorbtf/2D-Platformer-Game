@@ -8,6 +8,7 @@ public class Coin : MonoBehaviour
 {
     [SerializeField] private AudioClip collectingCoinAudio;
     private SoundManager soundManager;
+    private CoinsCounter coinCounter;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -15,13 +16,16 @@ public class Coin : MonoBehaviour
         {
             //soundManager.PlayEnviromentEffects(collectingCoinAudio);
 
-            CoinsCounter.Instance.NumberOfCoins++;
+            coinCounter.NumberOfCoins++;
             Destroy(gameObject);
         }
     }
+
     [Inject]
-    public void construct(SoundManager sM)
+    public void construct(SoundManager sM, CoinsCounter cC)
     {
         soundManager = sM;
+        coinCounter = cC;
     }
+
 }

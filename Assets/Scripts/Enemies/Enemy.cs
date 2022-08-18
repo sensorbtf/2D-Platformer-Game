@@ -84,11 +84,11 @@ public class Enemy : MonoBehaviour, ICharacters, IEnemy
         GetComponent<Collider2D>().enabled = false;
         anim.SetTrigger("Dying");
         yield return new WaitForSeconds(0.80f);
-        Spawn();
+        SpawnCoins();
         Destroy(gameObject);
     }
 
-    protected virtual void Spawn()
+    protected virtual void SpawnCoins()
     {
         float xPositionDifference = 0;
         int coinsCount = Random.Range(minimumCount, maximumCount);

@@ -74,6 +74,7 @@ GameObject:
   - component: {fileID: 7528215259146596975}
   - component: {fileID: 7528215259146596974}
   - component: {fileID: 7528215259146596971}
+  - component: {fileID: 984593272952559874}
   - component: {fileID: 7528215259146596969}
   - component: {fileID: 7528215259146596968}
   m_Layer: 6
@@ -190,7 +191,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7528215259146596969
+--- !u!114 &984593272952559874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -199,7 +200,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7528215259146596973}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1ec78cd50d44745b1e7c2c024813e7, type: 3}
+  m_Script: {fileID: 11500000, guid: 8326e71b0c1d5044fb6f82847b354a26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
@@ -212,6 +213,18 @@ MonoBehaviour:
   xWallForce: 5
   yWallForce: 20
   wallJumpTime: 0.1
+--- !u!114 &7528215259146596969
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7528215259146596973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1ec78cd50d44745b1e7c2c024813e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   platformTouchingValidator: {fileID: 7528215259328949609}
   wallTouchingValidator: {fileID: 7528215259095806921}
   attackValidator: {fileID: 7528215258818457274}

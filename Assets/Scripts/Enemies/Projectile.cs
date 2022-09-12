@@ -11,7 +11,6 @@ public class Projectile : MonoBehaviour
 
     private SoundManager soundManager;
 
-
     private void Start()
     {
         Destroy(gameObject, lifeTime);
@@ -31,12 +30,13 @@ public class Projectile : MonoBehaviour
         {
             StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
             Player.Instance.TakeDamage(damage);
+            soundManager.PlayEnviromentEffects(bombExplode);
             Destroy(gameObject);
         }
         else
         {
             Destroy(gameObject);
-           // soundManager.PlayEnviromentEffects(bombExplode);
+            soundManager.PlayEnviromentEffects(bombExplode);
         }
 
     }
@@ -44,9 +44,40 @@ public class Projectile : MonoBehaviour
     {
         transform.Translate(speed * Time.deltaTime * Vector2.right);
     }
+
     [Inject]
     public void construct(SoundManager sM)
     {
         soundManager = sM;
+    }
+
+    readonly ShootingEnemy _shootingEnemy;
+
+    public Projectile(ShootingEnemy shootingenemy)
+    {
+        _shootingEnemy = shootingenemy;
+    }
+
+    public class Factory : PlaceholderFactory<Projectile>
+    {
+
+    }
+}
+
+public class ProjectileSpawner : ITickable
+{
+    readonly Projectile.Factory _projectileFactory;
+
+    public ProjectileSpawner(Projectile.Factory enemyFactory)
+    {
+        _projectileFactory = enemyFactory;
+    }
+
+    public void Tick()
+    {
+        //if (ShouldSpawnNewEnemy())
+        //{
+            var projectile = _projectileFactory.Create();
+        //}
     }
 }

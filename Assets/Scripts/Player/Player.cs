@@ -9,24 +9,11 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     // Singletone instance
     public static Player Instance { get; private set; } 
 
-    [Header("Player parameters")]
-    [SerializeField] private int  health = 3;
-    [SerializeField] private int  damage = 1;
-    [SerializeField] private float  speed = 5;
-    [SerializeField] private float  jumpForce = 30;
-    [SerializeField] private float  wallSlidingSpeed = 3;
-    [SerializeField] private float  timeBetweenAttacks = 0.4f; 
-    [SerializeField] private float  attackRange = 0.5f;
-    [SerializeField] private float xWallForce = 5;
-    [SerializeField] private float yWallForce = 20;
-    [SerializeField] private float wallJumpTime = 0.1f;
-
     private Rigidbody2D rB2D;
     private Collider2D playerCollider;
     private Animator anim;
     private float input;
     private SoundManager soundManager;
-
 
     // Hero movement checkers
     private bool doDash = false;
@@ -54,9 +41,9 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
 
     private bool  canDash = true;
     private bool  isDashing = false;
-    private float dashingPower = 100;
-    private float dashingTime = 0.2f;
-    private float dashingCooldown = 1f;
+    private readonly float dashingPower = 100;
+    private readonly float dashingTime = 0.2f;
+    private readonly float dashingCooldown = 1f;
 
     // Hero state Checkers
 
@@ -79,48 +66,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
 
     // Properties for most used fields
     public Rigidbody2D RB2D { get => rB2D; set => rB2D = value; }
-    public int Health
-    {
-        get => health;
-        set
-        {
-            health = value;
-            if (value <= 0)
-            {
-                StartCoroutine(Die());
-            }
-        }
-    }
-    public int Damage
-    {
-        get => damage;
-        set { damage = value < 0 ? damage = 0 : damage = value; }
-    }
-    public float Speed
-    {
-        get => speed;
-        set { speed = value < 0 ?  speed = 0 : speed = value; }
-    }
-    public float JumpForce
-    {
-        get => jumpForce;
-        set { jumpForce = value < 0 ?  jumpForce = 0 : jumpForce = value; }
-    }
-    public float WallSlidingSpeed
-    {
-        get => wallSlidingSpeed;
-        set { wallSlidingSpeed = value < 0 ?  wallSlidingSpeed = 0 : wallSlidingSpeed = value; }
-    }
-    public float TimeBetweenAtacks
-    {
-        get => timeBetweenAttacks;
-        set { timeBetweenAttacks = value < 0 ? timeBetweenAttacks = 0 : timeBetweenAttacks = value; }
-    }
-    public float AttackRange
-    {
-        get => attackRange;
-        set { attackRange = value < 0 ? attackRange = 0 : attackRange = value; }
-    }
+    
     public bool IsImmune
     {
         get => isImmune;
@@ -135,7 +81,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
         playerLayerIndex = LayerMask.NameToLayer("Player");
         enemyLayerIndex = LayerMask.NameToLayer("Enemy");
         projectileLayerIndex = LayerMask.NameToLayer("Projectiles");
-}
+    }
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -147,7 +93,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     {
         if (isDashing )
             return;
-        if (Health <= 0)
+        if (PlayerConfig.Instance.Health <= 0)
             return;
 
         input = Input.GetAxisRaw("Horizontal");
@@ -159,7 +105,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     }
     private void FixedUpdate()
     {
-        RB2D.velocity = new Vector2(input * speed, RB2D.velocity.y);
+        RB2D.velocity = new Vector2(input * PlayerConfig.Instance.Speed, RB2D.velocity.y);
 
         if (doDash)
             Dash();
@@ -239,49 +185,46 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
         if (Input.GetKeyDown(KeyCode.UpArrow) && isSlidingWall)
         {
             isJumpingFromWall = true;
-            Invoke(nameof(SetWallJumpingToFalse), wallJumpTime);
+            Invoke(nameof(SetWallJumpingToFalse), PlayerConfig.Instance.WallSlidingSpeed);
 
             soundManager.PlayPlayerEffects(jumpSound);
         }
 
-        if (isJumpingFromWall )
+        if (isJumpingFromWall)
             doJumpFromWall = true;
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && canDash && !isGrounded)
             doDash = true;
 
-        if (Time.time > nextAttackTime)
-        {
-            if (Input.GetKeyDown(KeyCode.Space) && !isImmune)
-            {
-                StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
-                soundManager.PlayPlayerEffects(attackSound);
-                anim.SetTrigger("Attacking");
-                nextAttackTime = Time.time + TimeBetweenAtacks;
-            }
-        }
+        if (!(Time.time > nextAttackTime)) return;
+        if (!Input.GetKeyDown(KeyCode.Space) || isImmune) return;
+        
+        StartCoroutine(CameraShake.Instance.Shake(0.15f, 0.2f));
+        soundManager.PlayPlayerEffects(attackSound);
+        anim.SetTrigger("Attacking");
+        nextAttackTime = Time.time + PlayerConfig.Instance.TimeBetweenAttacks;
     }
     private void Jump()
     {
         soundManager.PlayPlayerEffects(jumpSound);
 
-        RB2D.velocity = Vector2.up * JumpForce;
+        RB2D.velocity = Vector2.up * PlayerConfig.Instance.JumpForce;
         doJump = false;
     }
     private void Attack()
     {
-        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, AttackRange, whatAreEnemies);
+        Collider2D[] enemiesToDamage = Physics2D.OverlapCircleAll(attackValidator.position, PlayerConfig.Instance.AttackRange, whatAreEnemies);
 
         foreach (Collider2D enemies in enemiesToDamage)
-            enemies.GetComponent<Enemy>().TakeDamage(damage);
+            enemies.GetComponent<Enemy>().TakeDamage(PlayerConfig.Instance.Damage);
     }
     private void SlideOnWall()
     {
-        RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -WallSlidingSpeed, float.MaxValue));
+        RB2D.velocity = new Vector2(RB2D.velocity.x, Mathf.Clamp(RB2D.velocity.y, -PlayerConfig.Instance.WallSlidingSpeed, float.MaxValue));
     }
     private void JumpFromWall()
     {
-        RB2D.velocity = new Vector2(xWallForce * -input, yWallForce);
+        RB2D.velocity = new Vector2(PlayerConfig.Instance.XWallForce * -input, PlayerConfig.Instance.YWallForce);
         doJumpFromWall = false;
     }
     private void Dash()
@@ -309,13 +252,13 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
 
         Instantiate(Blood, transform.position, Quaternion.identity);
 
-        if (Health > 0)
+        if (PlayerConfig.Instance.Health > 0)
             StartCoroutine(TemporaryGodmode());
 
         anim.SetTrigger("GettingDamage");
-        Health -= damage;
+        PlayerConfig.Instance.Health -= damage;
     }
-    private IEnumerator Die()
+    public IEnumerator Die()
     {
         soundManager.MuteDespiteMusic();
         soundManager.PlayMusic(deathSound);
@@ -384,7 +327,7 @@ public class Player : MonoBehaviour, ICharacters, IPlayer
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackValidator.position, AttackRange);
+        Gizmos.DrawWireSphere(attackValidator.position, PlayerConfig.Instance.AttackRange);
     }
     [Inject]
     public void construct(SoundManager sM)

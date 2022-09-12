@@ -19,8 +19,8 @@ public class PlayerHearts : MonoBehaviour
     private void Update()
     {
 
-        if (Player.Instance.Health > NumberOfHearts)
-            Player.Instance.Health = NumberOfHearts;
+        if (PlayerConfig.Instance.Health > NumberOfHearts)
+            PlayerConfig.Instance.Health = NumberOfHearts;
 
         for (int i = 0; i <  hearts.Length; i++)
         {
@@ -29,7 +29,7 @@ public class PlayerHearts : MonoBehaviour
             else
                  hearts[i].enabled = false;
 
-            if (i < Player.Instance.Health)
+            if (i < PlayerConfig.Instance.Health)
                 hearts[i].sprite = fullHeart;
             else
                 hearts[i].sprite = brokenHeart;

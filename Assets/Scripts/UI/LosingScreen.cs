@@ -8,10 +8,7 @@ public class LosingScreen : MonoBehaviour
     [SerializeField] private GameObject Screen;
     private void FixedUpdate()
     {
-        if (Player.Instance.Health <= 0)
-            Screen.SetActive(true);
-        else
-            Screen.SetActive(false);
+        Screen.SetActive(PlayerConfig.Instance.Health <= 0);
     }
     public void ReloadScene()
     {
